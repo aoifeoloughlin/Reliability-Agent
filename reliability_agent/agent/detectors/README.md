@@ -1,5 +1,4 @@
 # Detectors
-
 - Decide if it's bad by judging the data.
 
 ## Files/Folders in the directory:

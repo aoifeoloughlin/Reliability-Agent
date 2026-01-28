@@ -1,5 +1,4 @@
 # Exporters
-
 - Exposes signals. How we see what's happening.
 
 ## Files in the directory:

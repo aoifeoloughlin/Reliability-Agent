@@ -1,5 +1,4 @@
 # Collectors
-
 - This reads the system's state.
 - Only reads from `/proc`, `/sys` and system cmds.
 
