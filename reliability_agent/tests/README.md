@@ -1,5 +1,4 @@
 # Tests
-
 - Checks logic without the host.
 
 ## Files in the directory:

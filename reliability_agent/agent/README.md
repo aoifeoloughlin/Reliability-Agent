@@ -1,5 +1,4 @@
 # Agent
-
 - Mirrors real production agents like "Datadog Agent" and/or "Node Exporter".
 - Has all runtime logic
 
