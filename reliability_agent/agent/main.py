@@ -21,6 +21,7 @@ def main():
 
     # Load Config
     logging.basicConfig(level=logging.INFO) # Actual config parsing will be added in future issues
+    interval = 5
     logging.info("Start Reliability Agent")
 
     # Ensure that if you or Systemd end the loop is can handle the shutdown
