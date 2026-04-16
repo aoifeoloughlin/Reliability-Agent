@@ -5,7 +5,7 @@ running = True
 # Handle shut down gracefully
 def handle_shutdown(sigum, frame):
     global running
-    logging.info(f"Received signal {signum}, shutting down...")
+    logging.info(f"Received signal {sigum}, shutting down...")
     running = False
 
 # Collects metrics
