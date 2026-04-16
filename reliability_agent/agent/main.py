@@ -1,4 +1,4 @@
-import time, signal, logging, sleep
+import time, signal, logging
 
 running = True
 
@@ -32,7 +32,7 @@ def main():
     while running:
         collect_metrics() # collects the system metrics
         detect_issues() # finds the issues in the metrics
-        sleep(interval) # prevents loop oversaturation 
+        time.sleep(interval) # prevents loop oversaturation 
 
 # When running the python command by calling the main directly this is what makes it run
 # This is the entry point
