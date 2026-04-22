@@ -11,8 +11,6 @@ class ConfigLoader:
             Path(__file__).resolve().parent.parent 
         )
     
-    path = Path(__file__).resolve().parent.parent
-
     def load_config(self):
         with open(self.config_path) as config:
             return yaml.safe_load(config)
