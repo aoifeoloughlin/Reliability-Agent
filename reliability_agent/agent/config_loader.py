@@ -8,7 +8,7 @@ class ConfigLoader:
             self.config_name = os.getenv("agent", "default") # Getting agent config, if not there default to default
 
         self.config_path = (
-            Path(__file__).resolve().parent.parent / "configs" / config_name
+            Path(__file__).resolve().parent.parent 
         )
     
     path = Path(__file__).resolve().parent.parent
