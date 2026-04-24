@@ -1,4 +1,4 @@
-import time, logging
+import time, logging, signal
 
 class Scheduler:
     def __init__(self, interval):
@@ -8,15 +8,17 @@ class Scheduler:
     def stop(self):
         # This method is called from main.py for the graceful shut down
         self.running = False
-        logging.INFO("Scheduler has been stopped...")
+        logging.info("Scheduler has been stopped...")
     
-    def futureTask():
-        logging.INFO("Hello from future task")
+    def futureTask(self):
+        print("Hello from future task")
 
-    def running(self):
-        logging.INFO("Scheduler has started....")
+    def run(self):
+        print("Scheduler has started....")
 
         while self.running:
-            futureTask()
+            self.futureTask()
             time.sleep(self.interval)
+            signal.signal(signal.SIGTERM, stop) # SIGTERM is what systemd sends 
+            signal.signal(signal.SIGINT, stop) # This is for hitting Ctrl+C
         
