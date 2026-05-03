@@ -1,8 +1,8 @@
-import time, logging, signal
+import time, logging, signal, threading
 
 class Scheduler:
-    def __init__(self, interval):
-        self.running = True
+    def __init__(self, running, interval ):
+        self.running = running
         self.interval = interval
 
     def stop(self):
@@ -14,11 +14,8 @@ class Scheduler:
         print("Hello from future task")
 
     def run(self):
-        print("Scheduler has started....")
-
-        while self.running:
-            self.futureTask()
-            time.sleep(self.interval)
-            signal.signal(signal.SIGTERM, stop) # SIGTERM is what systemd sends 
-            signal.signal(signal.SIGINT, stop) # This is for hitting Ctrl+C
+        print("Scheduler: Signal received, starting work!")
+        self.futureTask()
+        time.sleep(self.interval)
+            
         

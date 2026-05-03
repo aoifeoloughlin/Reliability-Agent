@@ -1,4 +1,4 @@
-import time, signal, logging
+import time, signal, logging, threading
 from agent.scheduler import Scheduler
 from agent.config_loader import ConfigLoader
 running = True
@@ -31,17 +31,20 @@ def main():
     signal.signal(signal.SIGTERM, handle_shutdown) # SIGTERM is what systemd sends 
     signal.signal(signal.SIGINT, handle_shutdown) # This is for hitting Ctrl+C
 
-    scheduler = Scheduler(interval)
+    scheduler = Scheduler(running, interval)
+
+    thread = threading.Thread(target=scheduler.run)
+    thread.start()
 
     # Start Loop
     while running:
-        print("scheduler.run")
-        #scheduler.run()
         print("collect and detect")
         collect_metrics() # collects the system metrics
         detect_issues() # finds the issues in the metrics
         print("sleep")
         time.sleep(interval) # prevents loop oversaturation 
+    
+    thread.join()
         
 
 # When running the python command by calling the main directly this is what makes it run
