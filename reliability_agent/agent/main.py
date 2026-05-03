@@ -4,10 +4,11 @@ from agent.config_loader import ConfigLoader
 running = True
 
 # Handle shut down gracefully
-def handle_shutdown(sigum, interval):
+def handle_shutdown(sigum, frame):
     global running
     logging.info(f"Received signal {sigum}, shutting down...")
     running = False
+    #shutdown_event = threading.Event()
 
 # Collects metrics
 def collect_metrics():
@@ -16,6 +17,7 @@ def collect_metrics():
 # Detect issues
 def detect_issues():
     logging.info(f"Detecting issues...(stub)")
+
 
 def main():
     global running
@@ -30,14 +32,15 @@ def main():
     # Ensure that if you or Systemd end the loop is can handle the shutdown
     signal.signal(signal.SIGTERM, handle_shutdown) # SIGTERM is what systemd sends 
     signal.signal(signal.SIGINT, handle_shutdown) # This is for hitting Ctrl+C
+    thread_trigger = threading.Event()
+    scheduler = Scheduler(running, interval, thread_trigger)
+    thread = threading.Thread(target=scheduler.run, daemon=True)
 
-    scheduler = Scheduler(running, interval)
-
-    thread = threading.Thread(target=scheduler.run)
     thread.start()
 
     # Start Loop
     while running:
+        thread_trigger.set()
         print("collect and detect")
         collect_metrics() # collects the system metrics
         detect_issues() # finds the issues in the metrics

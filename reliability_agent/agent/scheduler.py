@@ -1,9 +1,10 @@
 import time, logging, signal, threading
 
 class Scheduler:
-    def __init__(self, running, interval ):
+    def __init__(self, running, interval, thread):
         self.running = running
         self.interval = interval
+        self.thread = thread
 
     def stop(self):
         # This method is called from main.py for the graceful shut down
@@ -14,8 +15,11 @@ class Scheduler:
         print("Hello from future task")
 
     def run(self):
-        print("Scheduler: Signal received, starting work!")
-        self.futureTask()
-        time.sleep(self.interval)
+        while self.running:
+            self.thread.wait()
+            print("thread called")
+            print("Scheduler: Signal received, starting work!", self.running)
+            self.futureTask()
+            self.thread.clear()
             
         
