@@ -17,8 +17,7 @@ class Scheduler:
     def run(self):
         while self.running:
             self.thread.wait()
-            print("thread called")
-            print("Scheduler: Signal received, starting work!", self.running)
+            print("Scheduler: Signal received, starting work!")
             self.futureTask()
             self.thread.clear()
             

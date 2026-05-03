@@ -41,10 +41,8 @@ def main():
     # Start Loop
     while running:
         thread_trigger.set()
-        print("collect and detect")
         collect_metrics() # collects the system metrics
         detect_issues() # finds the issues in the metrics
-        print("sleep")
         time.sleep(interval) # prevents loop oversaturation 
     
     thread.join()
