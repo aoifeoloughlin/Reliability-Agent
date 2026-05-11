@@ -1,4 +1,4 @@
-import time, signal, logging, threading
+import time, signal, logging, threading, os
 from agent.scheduler import Scheduler
 from agent.config_loader import ConfigLoader
 running = True
@@ -20,13 +20,12 @@ def detect_issues():
 
 def main():
     global running
-    interval = 5
+    # Load Config
+    config_loader = ConfigLoader("../reliability_agent/configs/agent.yaml")
+    agent_config = config_loader.load_config()
+    interval = agent_config["interval_seconds"]
     scheduler = Scheduler(running, interval)
     next_run = time.monotonic()
-    
-    # Load Config
-    agentConfig = ConfigLoader(None)
-    logging.info(agentConfig)
     logging.info("Start Reliability Agent")
 
     # Ensure that if you or Systemd end the loop is can handle the shutdown
