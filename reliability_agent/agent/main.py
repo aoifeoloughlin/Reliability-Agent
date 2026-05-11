@@ -17,7 +17,6 @@ def collect_metrics():
 def detect_issues():
     print(f"Detecting issues...(stub)")
 
-
 def main():
     global running
     # Load Config
@@ -47,7 +46,6 @@ def main():
     stop_thread.set() #stops the while loop in the scheduler class
     thread.join() #cleans up multi-threading
         
-
 # When running the python command by calling the main directly this is what makes it run
 # This is the entry point
 if __name__ == "__main__":
