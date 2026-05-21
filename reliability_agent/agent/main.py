@@ -12,7 +12,7 @@ def handle_shutdown(sigum, frame):
 # Collects metrics
 def collect_metrics():
     print(f"Collecting metrcis...(stub)")
-    result = subprocess.run(["./collectors/cpu.sh"], capture_output=True, text=True)
+    result = subprocess.run(["../collectors/cpu.sh"], capture_output=True, text=True)
     print("collected ", result.stdout.strip())
 
 
