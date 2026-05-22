@@ -1,5 +1,5 @@
-import time, signal, logging, threading, os, subprocess 
-from agent.collectors import cpu as cpu_script
+import time, signal, logging, threading, os, subprocess
+from pathlib import Path
 from agent.scheduler import Scheduler
 from agent.config_loader import ConfigLoader
 running = True
@@ -13,7 +13,9 @@ def handle_shutdown(sigum, frame):
 # Collects metrics
 def collect_metrics():
     print(f"Collecting metrcis...(stub)")
-    result = subprocess.run([cpu_script], capture_output=True, text=True)
+    current_dir = Path(__file__).resolve().parent
+    script_path = current_dir / 'collectors' / 'cpu.sh'
+    result = subprocess.run([script_path], capture_output=True, text=True)
     print("collected ", result.stdout.strip())
 
 
