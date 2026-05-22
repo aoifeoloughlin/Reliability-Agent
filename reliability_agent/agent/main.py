@@ -1,5 +1,5 @@
 import time, signal, logging, threading, os, subprocess 
-from collectors import cpu as cpu_script
+from agent.collectors import cpu as cpu_script
 from agent.scheduler import Scheduler
 from agent.config_loader import ConfigLoader
 running = True
