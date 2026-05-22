@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 read -r _ user nice system idle iowait irq softirq steal _ < /proc/stat
 total_idle = $((idle + iowait))
 total_active = $((user+nice+system+idle+iowait+irq+softirq+steal))
