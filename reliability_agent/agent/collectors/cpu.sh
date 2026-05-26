@@ -3,6 +3,6 @@
 read -r cpu user nice system idle iowait irq softirq _ < <(grep '^cpu ' /proc/stat)
 total_idle = $((idle + iowait))
 total_active = $((user+nice+system+idle+iowait+irq+softirq+steal))
-echo "active $idle"
+echo "total $total_active"
 cpu_usage=$((100 * ((total_active-total_idle)/total_active)))
-echo "CPU_Usage: $cpu_usage%"
+echo "CPU_Usage: $cpu_usage %"
