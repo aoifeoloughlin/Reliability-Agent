@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-chmod +x agent/collectors/cpu.sh
+sudo +x agent/collectors/cpu.sh
 read -r _ user nice system idle iowait irq softirq steal _ < /proc/stat
 total_idle = $((idle + iowait))
 total_active = $((user+nice+system+idle+iowait+irq+softirq+steal))
