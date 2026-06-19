@@ -21,7 +21,7 @@ stats_json=$(jq -n \
     --argjson irq "$irq" \
     --argjson softirq "$softirq" \
     --argjson steal "$steal" \
-    '{user:$user,nice:$nice,system:$system,idle:$idle,iowait:$iowait,irq:$irq,softirq:$softirq,steal:$steal}' \
+    '{user:${user:-0},nice:${nice:-0},system:${system:-0},idle:${idle:-0},iowait:${iowait:-0},irq:${irq:-0},softirq:${softirq:-0}}' \
     2>&1)
 
 echo "$stats_json"
