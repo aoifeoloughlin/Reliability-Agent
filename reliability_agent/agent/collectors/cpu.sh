@@ -2,8 +2,8 @@
 #sudo +x agent/collectors/cpu.sh - need to make this a sub issue
 local total_idle total_active cpu_usage
 read -r cpu user nice system idle iowait irq softirq _ < <(grep '^cpu ' /proc/stat)
-cpu=$((cpu))
-user_test=$((user))
+cpu=$((cpu+0))
+user_test=$((user+0))
 nice=$((nice))
 system=$((system))
 idle=$((idle))
