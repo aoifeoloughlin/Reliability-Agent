@@ -6,3 +6,9 @@ total_idle=$((idle + iowait))
 total_active=$((user + nice + system + irq + softirq))
 cpu_usage=$(( 100 * (total_active - total_idle) / total_active ))
 echo "CPU Usage: $cpu_usage %"
+json_string=$(jq -n \
+    --argjson total_idle "$total_idle" \
+    --argjson total_active "$total_active" \
+    --argjson cpu_usage "$cpu_usage" \
+    '{total_idle: $total_idle, total_active: $total_active, cpu_usage: $cpu_usage}')
+echo "JSON CPU: $json_string"
