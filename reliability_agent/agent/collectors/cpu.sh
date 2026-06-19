@@ -11,4 +11,15 @@ json_string=$(jq -n \
     --argjson total_active "$total_active" \
     --argjson cpu_usage "$cpu_usage" \
     '{total_idle: $total_idle, total_active: $total_active, cpu_usage: $cpu_usage}')
+stats_json=$(jq -n \
+    --argjson cpu "$cpu" \
+    --argjson user "$user" \
+    --argjson nice "$nice" \
+    --argjson system "$system" \
+    --argjson idle "$idle" \
+    --argjson iowait "$iowait" \
+    --argjson irq "$irq" \
+    --argjson softirq "$softirq" \
+    '{cpu: $cpu, user: $user, nice: $nice, system: $system, idle: $idle, iowait: $iowait, irq: $irq, softirq:$softirq}')
 echo "JSON CPU: $json_string"
+echo "STATS CPU: $stats_json"
