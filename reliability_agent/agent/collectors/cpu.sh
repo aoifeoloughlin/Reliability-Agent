@@ -2,14 +2,7 @@
 #sudo +x agent/collectors/cpu.sh - need to make this a sub issue
 local total_idle total_active cpu_usage
 read -r cpu user nice system idle iowait irq softirq _ < <(grep '^cpu ' /proc/stat)
-cpu=$((cpu+0))
-user_test=$((user+0))
-nice=$((nice))
-system=$((system))
-idle=$((idle))
-iowait=$((iowait))
-irq=$((irq))
-softirq=$((softirq))
+
 total_idle=$((idle + iowait))
 total_active=$((user + nice + system + irq + softirq))
 cpu_usage=$(( 100 * (total_active - total_idle) / total_active ))
@@ -28,6 +21,6 @@ stats_json=$(jq -n \
     --argjson iowait "$iowait" \
     --argjson irq "$irq" \
     --argjson softirq "$softirq" \
-    '{cpu: $cpu, user: $user, nice: $nice, system: $system, idle: $idle, iowait: $iowait, irq: $irq, softirq:$softirq}')
+    '{cpu: $cpu, user: $user, nice: $nice, system: $system, idle: $idle, iowait: $iowait, irq: $irq, softirq: $softirq}')
 echo "JSON CPU: $json_string"
 echo "STATS CPU: $stats_json"
