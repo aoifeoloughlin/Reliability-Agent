@@ -3,7 +3,7 @@
 local total_idle total_active cpu_usage
 read -r cpu user nice system idle iowait irq softirq _ < <(grep '^cpu ' /proc/stat)
 cpu=$((cpu))
-user=$((user))
+user_test=$((user))
 nice=$((nice))
 system=$((system))
 idle=$((idle))
