@@ -13,23 +13,14 @@ json_string=$(jq -n \
     --argjson cpu_usage "$cpu_usage" \
     '{total_idle: $total_idle, total_active: $total_active, cpu_usage: $cpu_usage}')
 stats_json=$(jq -n \
-    --argjson user "$user" \
-    --argjson nice "$nice" \
-    --argjson system "$system" \
-    --argjson idle "$idle" \
-    --argjson iowait "$iowait" \
-    --argjson irq "$irq" \
-    --argjson softirq "$softirq" \
-    --argjson steal "$steal" \
-    '{user:${user:-0},nice:${nice:-0},system:${system:-0},idle:${idle:-0},iowait:${iowait:-0},irq:${irq:-0},softirq:${softirq:-0}}' \
-    2>&1)
-
-echo "$stats_json"
-
-echo "user=$user"
-echo "nice=$nice"
-echo "system=$system"
-echo "idle=$idle"
-echo "iowait=$iowait"
-echo "irq=$irq"
-echo "softirq=$softirq"
+    --json cpu "$cpu" \
+    --json user "$user" \
+    --json nice "$nice" \
+    --json system "$system" \
+    --json idle "$idle" \
+    --json iowait "$iowait" \
+    --json irq "$irq" \
+    --json softirq "$softirq" \
+    '{cpu: $cpu, user: $user, nice: $nice, system: $system, idle: $idle, iowait: $iowait, irq: $irq, softirq: $softirq}')
+echo "JSON CPU: $json_string"
+echo "STATS CPU: $stats_json"
