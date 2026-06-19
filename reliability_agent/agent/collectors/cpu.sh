@@ -23,4 +23,11 @@ stats_json=$(jq -n \
     --argjson softirq "$softirq" \
     '{cpu: $cpu, user: $user, nice: $nice, system: $system, idle: $idle, iowait: $iowait, irq: $irq, softirq: $softirq}')
 echo "JSON CPU: $json_string"
-echo "STATS CPU: $stats_json"
+echo $stats_json
+echo "user=$user"
+echo "nice=$nice"
+echo "system=$system"
+echo "idle=$idle"
+echo "iowait=$iowait"
+echo "irq=$irq"
+echo "softirq=$softirq"
