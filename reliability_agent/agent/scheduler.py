@@ -6,7 +6,7 @@ class Scheduler:
         self.running = running
         self.interval = interval
         self.tick_count = 0
-        logger = get_logger()
+        self.logger = get_logger()
     
     
     
