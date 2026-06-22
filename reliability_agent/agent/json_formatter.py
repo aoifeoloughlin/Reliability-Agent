@@ -26,3 +26,4 @@ class JsonFormatter(logging.Formatter):
         log_object.update(extra_fields)
 
         return json.dumps(log_object)
+        

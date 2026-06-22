@@ -1,21 +1,17 @@
 import time, signal, logging, threading, os, subprocess, sys
 from agent.json_formatter import JsonFormatter
+from agent.logging_config import get_logger
 from pathlib import Path
 from agent.scheduler import Scheduler
 from agent.config_loader import ConfigLoader
 running = True
 
-logger = logging.getLogger("agent")
-logger.setLevel(logging.DEBUG)
-
-handler = logging.StreamHandler(sys.stdout)
-handler.setFormatter(JsonFormatter())
-logger.addHandler(handler)
+logger = get_logger()
 
 # Handle shut down gracefully
 def handle_shutdown(sigum, frame):
     global running
-    logging.info(f"Received signal {sigum}, shutting down...", extra={"sigum":sigum, "running":running})
+    logger.info(f"Received signal {sigum}, shutting down...", extra={"sigum":sigum, "running":running})
     running = False
 
 # Collects metrics
@@ -23,12 +19,12 @@ def collect_metrics():
     current_dir = Path(__file__).resolve().parent
     script_path = current_dir / 'collectors' / 'cpu.sh'
     result = subprocess.run([script_path], capture_output=True, text=True)
-    logging.info(f"Collecting metrcis...(stub)", extra={"result":result.stdout.strip(),"path":script_path})
+    logger.info(f"Collecting metrcis...(stub)", extra={"result":result.stdout.strip(),"path":script_path})
 
 
 # Detect issues
 def detect_issues():
-    logging.info(f"Detecting issues...(stub)")
+    logger.info(f"Detecting issues...(stub)")
 
 def main():
     global running
@@ -38,7 +34,7 @@ def main():
     interval = agent_config["interval_seconds"]
     scheduler = Scheduler(running, interval)
     next_run = time.monotonic()
-    logging.info("Start Reliability Agent", extra={"interval_seconds":interval, "next_run":next_run})
+    logger.info("Start Reliability Agent", extra={"interval_seconds":interval, "next_run":next_run})
 
     # Ensure that if you or Systemd end the loop is can handle the shutdown
     signal.signal(signal.SIGTERM, handle_shutdown) # SIGTERM is what systemd sends 
@@ -48,7 +44,7 @@ def main():
     stop_thread = threading.Event()
     thread = threading.Thread(target=scheduler.run, args=(run_thread, stop_thread), daemon=True)
     thread.start()
-    logging.info("Thread started", extra={"running_thread":thread, "running":running})
+    logger.info("Thread started", extra={"running_thread":thread, "running":running})
 
     # Start Loop
     while running:
@@ -59,7 +55,7 @@ def main():
             next_run += interval
     stop_thread.set() #stops the while loop in the scheduler class
     thread.join() #cleans up multi-threading
-    logging.info("Thread ended", extra={"time_monotonic":time.monotonic, "next_run":next_run})
+    logger.info("Thread ended", extra={"time_monotonic":time.monotonic, "next_run":next_run})
         
 # When running the python command by calling the main directly this is what makes it run
 # This is the entry point
