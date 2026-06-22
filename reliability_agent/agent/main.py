@@ -4,7 +4,7 @@ from pathlib import Path
 from agent.scheduler import Scheduler
 from agent.config_loader import ConfigLoader
 running = True
-
+logging.basicConfig(level=logging.DEBUG) #temp
 handler = logging.StreamHandler(sys.stdout)
 handler.setFormatter(JsonFormatter())
 logger = logging.getLogger("agent")
