@@ -1,6 +1,6 @@
 # logging_config.py
 import logging
-from agent.JsonFormatter import JsonFormatter
+from agent.json_formatter import JsonFormatter
 import sys
 
 def get_logger():
