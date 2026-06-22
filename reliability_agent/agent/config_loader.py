@@ -1,6 +1,6 @@
 import yaml, os, logging
 import pathlib as Path
-from logging_content from get_logger
+from agent.logging_content from get_logger
 
 class ConfigLoader:
     def __init__(self, config_path):
