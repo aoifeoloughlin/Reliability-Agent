@@ -4,18 +4,6 @@ from agent.scheduler import Scheduler
 from agent.config_loader import ConfigLoader
 running = True
 
-def json_formatter(logging.formatter):
-    def format(self, record):
-        log_object = {
-            "timestamp": datetime.fromtimestamp(record.created, tz=timezone.utc).isoformat(),
-            "level": record.levelname,
-            "module": record.name,
-            "message": record.getMessage(),
-        }
-    if hasattr(record, "extra"):
-            log_obj.update(record.extra)
-        return json.dumps(log_obj)
-
 handler = logging.StreamHandler(sys.stdout)
 handler.setFormatter(JsonFormatter())
 logger = logging.getLogger("agent")
