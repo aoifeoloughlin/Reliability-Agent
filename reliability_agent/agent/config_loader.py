@@ -12,7 +12,7 @@ class ConfigLoader:
         try:
             with open(self.config_path, 'r') as config:
                 config_yaml = yaml.safe_load(config)
-                logging.info("Config loaded successfully", extra={"config_yaml":config_yaml, "config_path":config_path})
+                logging.info("Config loaded successfully", extra={"config_yaml":config_yaml, "config_path":self.config_path})
             return config_yaml
         except Exception as e:
             logging.ERROR("ERROR:", e)
