@@ -1,6 +1,6 @@
 import time, signal, logging, threading, os, subprocess, sys
 from agent.json_formatter import JsonFormatter
-from agent.logging_config import get_logger
+from agent.logging_content import get_logger
 from pathlib import Path
 from agent.scheduler import Scheduler
 from agent.config_loader import ConfigLoader
