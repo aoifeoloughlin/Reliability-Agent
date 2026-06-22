@@ -1,0 +1,10 @@
+{
+    "cpu": "cpu", 
+    "user": 0, 
+    "nice": 0, 
+    "system": 0, 
+    "idle": 0, 
+    "iowait": 0, 
+    "irq": 0, 
+    "softirq": 0
+}
