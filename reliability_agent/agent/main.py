@@ -19,7 +19,7 @@ def collect_metrics():
     current_dir = Path(__file__).resolve().parent
     script_path = current_dir / 'collectors' / 'cpu.sh'
     result = subprocess.run([script_path], capture_output=True, text=True)
-    logger.info(f"Collecting metrcis...(stub)", extra={"result":result.stdout.strip(),"path":script_path})
+    logger.info(f"Collecting metrcis...(stub)", extra={"result":result.stdout.strip()})
 
 
 # Detect issues
