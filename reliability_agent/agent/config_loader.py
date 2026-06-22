@@ -14,8 +14,8 @@ class ConfigLoader:
         try:
             with open(self.config_path, 'r') as config:
                 config_yaml = yaml.safe_load(config)
-                logger.info("Config loaded successfully", extra={"config_yaml":config_yaml})
+                self.logger.info("Config loaded successfully", extra={"config_yaml":config_yaml})
             return config_yaml
         except Exception as e:
-            logger.error("ERROR:", e)
+            self.logger.error("ERROR:", e)
             traceback.print_exc()

@@ -8,10 +8,8 @@ class Scheduler:
         self.tick_count = 0
         self.logger = get_logger()
     
-    
-    
     def futureTask(self):
-        logger.info("Hello from future task")
+        self.logger.info("Hello from future task")
 
     def run(self, run_thread, stop_thread):
         while not stop_thread.is_set():
@@ -22,10 +20,10 @@ class Scheduler:
                     break
                 if thread:
                     run_thread.clear()
-                    logger.info("Scheduler: Signal received, starting work!")
+                    self.logger.info("Scheduler: Signal received, starting work!")
                     start=time.monotonic()
                     self.futureTask()  
                     duration = time.monotonic()-start
-                    logger.info(f"Tick {self.tick_count} completed in {duration:.2f}s", extra={"duration":duration, "tick_count":self.tick_count})
+                    self.logger.info(f"Tick {self.tick_count} completed in {duration:.2f}s", extra={"duration":duration, "tick_count":self.tick_count})
             except Exception as e:
-                logger.error(f"Worker crashed with error: {e}")
+                self.logger.error(f"Worker crashed with error: {e}")
