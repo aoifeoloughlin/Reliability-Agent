@@ -10,9 +10,17 @@ class JsonFormatter(logging.Formatter):
             "message": record.getMessage(),
         }
 
+        LOG_RECORD_RESERVED = {
+            "name", "msg", "args", "levelname", "levelno",
+            "pathname", "filename", "module", "exc_info",
+            "exc_text", "stack_info", "lineno", "funcName",
+            "created", "msecs", "relativeCreated", "thread",
+            "threadName", "processName", "process"
+        }
+
         extra_fields = {
             k: v for k, v in data.items()
-            if k not in logging.LogRecord("", "", "", "", "", (), {}).__dict__
+            if k not in LOG_RECORD_RESERVED
         }
 
         log_object.update(extra_fields)

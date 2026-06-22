@@ -47,7 +47,7 @@ def main():
     stop_thread = threading.Event()
     thread = threading.Thread(target=scheduler.run, args=(run_thread, stop_thread), daemon=True)
     thread.start()
-    logging.info("Thread started", extra={"thread":thread, "running":running})
+    logging.info("Thread started", extra={"running_thread":thread, "running":running})
 
     # Start Loop
     while running:
