@@ -44,7 +44,7 @@ def main():
     stop_thread = threading.Event()
     thread = threading.Thread(target=scheduler.run, args=(run_thread, stop_thread), daemon=True)
     thread.start()
-    logger.info("Thread started", extra={"running_thread":thread, "running":running})
+    logger.info("Thread started", extra={"running":running})
 
     # Start Loop
     while running:
@@ -55,7 +55,7 @@ def main():
             next_run += interval
     stop_thread.set() #stops the while loop in the scheduler class
     thread.join() #cleans up multi-threading
-    logger.info("Thread ended", extra={"time_monotonic":time.monotonic, "next_run":next_run})
+    logger.info("Thread ended", extra={"time_monotonic":time.monotonic(), "next_run":next_run})
         
 # When running the python command by calling the main directly this is what makes it run
 # This is the entry point
