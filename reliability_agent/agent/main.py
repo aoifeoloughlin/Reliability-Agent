@@ -4,12 +4,13 @@ from pathlib import Path
 from agent.scheduler import Scheduler
 from agent.config_loader import ConfigLoader
 running = True
-logging.basicConfig(level=logging.DEBUG) #temp
+
+logger = logging.getLogger("agent")
+logger.setLevel(logging.DEBUG)
+
 handler = logging.StreamHandler(sys.stdout)
 handler.setFormatter(JsonFormatter())
-logger = logging.getLogger("agent")
 logger.addHandler(handler)
-logger.setLevel(logging.DEBUG)
 
 # Handle shut down gracefully
 def handle_shutdown(sigum, frame):
