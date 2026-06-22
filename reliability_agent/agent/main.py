@@ -1,4 +1,4 @@
-import time, signal, logging, threading, os, subprocess
+import time, signal, logging, threading, os, subprocess, sys
 from pathlib import Path
 from agent.scheduler import Scheduler
 from agent.config_loader import ConfigLoader
