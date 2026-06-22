@@ -18,6 +18,7 @@ class JsonFormatter(logging.Formatter):
             "threadName", "processName", "process"
         }
 
+        if record.__dict__.items():
         extra_fields = {
             k: v for k, v in record.__dict__.items()
             if k not in LOG_RECORD_RESERVED
