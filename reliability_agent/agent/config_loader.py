@@ -8,9 +8,9 @@ class ConfigLoader:
         self.config_path = config_path
         if config_path is None:
             self.config_path = "../reliability_agent/configs/default.yaml" # Getting agent config, if not there default to default
+        logger = get_logger()    
 
     def load_config(self):
-        logger = get_logger()
         try:
             with open(self.config_path, 'r') as config:
                 config_yaml = yaml.safe_load(config)

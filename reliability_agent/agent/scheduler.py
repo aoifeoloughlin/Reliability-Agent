@@ -6,8 +6,9 @@ class Scheduler:
         self.running = running
         self.interval = interval
         self.tick_count = 0
+        logger = get_logger()
     
-    logger = get_logger()
+    
     
     def futureTask(self):
         logger.info("Hello from future task")

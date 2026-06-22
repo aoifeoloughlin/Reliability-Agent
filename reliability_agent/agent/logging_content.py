@@ -4,7 +4,6 @@ from agent.json_formatter import JsonFormatter
 import sys
 
 def get_logger():
-    
     logger = logging.getLogger("agent")
     if not logger.handlers:
         handler = logging.StreamHandler(sys.stdout)
