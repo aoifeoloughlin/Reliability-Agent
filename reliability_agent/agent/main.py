@@ -1,4 +1,5 @@
 import time, signal, logging, threading, os, subprocess, sys
+import agent.JsonFormatter import JsonFormatter
 from pathlib import Path
 from agent.scheduler import Scheduler
 from agent.config_loader import ConfigLoader
