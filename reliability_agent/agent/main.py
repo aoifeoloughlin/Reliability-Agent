@@ -4,7 +4,7 @@ from agent.scheduler import Scheduler
 from agent.config_loader import ConfigLoader
 running = True
 
-def json_formatter(logging.Formatter):
+def json_formatter(logging.formatter):
     def format(self, record):
         log_object = {
             "timestamp": datetime.fromtimestamp(record.created, tz=timezone.utc).isoformat(),
