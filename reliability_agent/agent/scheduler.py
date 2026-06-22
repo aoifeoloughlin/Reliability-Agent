@@ -22,6 +22,6 @@ class Scheduler:
                     start=time.monotonic()
                     self.futureTask()  
                     duration = time.monotonic()-start
-                    logging.info(f"Tick {self.tick_count} completed in {duration:.2f}s", extra={"duration"=duration, "tick_count"=self.tick_count})
+                    logging.info(f"Tick {self.tick_count} completed in {duration:.2f}s", extra={"duration":duration, "tick_count":self.tick_count})
             except Exception as e:
                 logging.error(f"Worker crashed with error: {e}")

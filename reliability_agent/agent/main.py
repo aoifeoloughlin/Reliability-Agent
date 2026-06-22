@@ -13,7 +13,7 @@ logger.setLevel(logging.DEBUG)
 # Handle shut down gracefully
 def handle_shutdown(sigum, frame):
     global running
-    logging.info(f"Received signal {sigum}, shutting down...", extra={"sigum"=sigum, "running"=running})
+    logging.info(f"Received signal {sigum}, shutting down...", extra={"sigum":sigum, "running":running})
     running = False
 
 # Collects metrics
@@ -21,7 +21,7 @@ def collect_metrics():
     current_dir = Path(__file__).resolve().parent
     script_path = current_dir / 'collectors' / 'cpu.sh'
     result = subprocess.run([script_path], capture_output=True, text=True)
-    logging.info(f"Collecting metrcis...(stub)", extra={"result"=result.stdout.strip(),"path"=script_path})
+    logging.info(f"Collecting metrcis...(stub)", extra={"result":result.stdout.strip(),"path":script_path})
 
 
 # Detect issues
@@ -36,7 +36,7 @@ def main():
     interval = agent_config["interval_seconds"]
     scheduler = Scheduler(running, interval)
     next_run = time.monotonic()
-    logging.info("Start Reliability Agent", extra={"interval_seconds"=interval, "next_run"=next_run})
+    logging.info("Start Reliability Agent", extra={"interval_seconds":interval, "next_run":next_run})
 
     # Ensure that if you or Systemd end the loop is can handle the shutdown
     signal.signal(signal.SIGTERM, handle_shutdown) # SIGTERM is what systemd sends 
@@ -46,7 +46,7 @@ def main():
     stop_thread = threading.Event()
     thread = threading.Thread(target=scheduler.run, args=(run_thread, stop_thread), daemon=True)
     thread.start()
-    logging.info("Thread started", extra={"thread"=thread, "running"=running})
+    logging.info("Thread started", extra={"thread":thread, "running":running})
 
     # Start Loop
     while running:
@@ -57,7 +57,7 @@ def main():
             next_run += interval
     stop_thread.set() #stops the while loop in the scheduler class
     thread.join() #cleans up multi-threading
-    logging.info("Thread ended", extra={"time_monotonic"=time.monotonic, "next_run", next_run})
+    logging.info("Thread ended", extra={"time_monotonic":time.monotonic, "next_run":next_run})
         
 # When running the python command by calling the main directly this is what makes it run
 # This is the entry point
