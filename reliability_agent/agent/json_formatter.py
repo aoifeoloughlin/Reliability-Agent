@@ -11,8 +11,7 @@ class JsonFormatter(logging.Formatter):
         }
 
         extra_fields = {
-            k: v
-            for k, v in record.__dict__.items()
+            k: v for k, v in data.items()
             if k not in logging.LogRecord("", "", "", "", "", (), {}).__dict__
         }
 
