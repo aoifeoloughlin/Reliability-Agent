@@ -6,7 +6,8 @@ class JsonFormatter(logging.Formatter):
         log_object = {
             "timestamp": datetime.fromtimestamp(record.created, tz=timezone.utc).isoformat(),
             "level": record.levelname,
-            "module": record.name,
+            "service": "reliability-agent",
+            "component": getattr(record, "component", record.name),
             "message": record.getMessage(),
         }
 
