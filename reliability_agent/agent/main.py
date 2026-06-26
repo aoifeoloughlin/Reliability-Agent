@@ -59,6 +59,7 @@ def main():
             run_thread.set()
             collect_metrics() # collects the system metrics
             detect_issues() # finds the issues in the metrics
+            interval = float(interval)
             next_run += interval
     stop_thread.set() #stops the while loop in the scheduler class
     thread.join() #cleans up multi-threading
