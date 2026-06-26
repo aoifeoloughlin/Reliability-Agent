@@ -17,7 +17,7 @@ def handle_shutdown(sigum, frame):
     logger.info(str(LogEvent.HANDLE_SHUTDOWN_SIGNAL_RECEIVED), extra={"sigum":sigum, "running":running})
     running = False
     with open("output.txt", "w") as f:
-    f.write(metric_store)
+        f.write(metric_store)
 
 # Collects metrics
 def collect_metrics():
