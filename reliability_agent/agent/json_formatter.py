@@ -1,4 +1,4 @@
-import logging, json, sys, pickle
+import logging, json, sys
 from datetime import datetime, timezone
 
 class JsonFormatter(logging.Formatter):

@@ -1,4 +1,4 @@
-import time, signal, logging, threading, os, subprocess, sys
+import time, signal, logging, threading, os, subprocess, sys, pickle
 from agent.json_formatter import JsonFormatter
 from agent.logging_content import get_logger
 from agent.metric_store import MetricsStore
