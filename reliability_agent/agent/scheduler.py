@@ -10,7 +10,6 @@ class Scheduler:
         self.tick_count = 0
         self.logger = get_logger()
         self.metric_store = MetricsStore(window_size)
-        self.logEvent = LogEvent
     
     def futureTask(self):
         self.logger.info("Hello from future task")
@@ -28,8 +27,8 @@ class Scheduler:
                     start=time.monotonic()
                     self.futureTask()  
                     duration = time.monotonic()-start
-                    self.metric_store.add_sample(self.logEvent.TICK_COMPLETED.value, self.tick_count)
-                    self.metric_store.add_sample(self.logEvent.TICK_DURATION.value, duration)
+                    self.metric_store.add_sample(LogEvent.TICK_COMPLETED.value, self.tick_count)
+                    self.metric_store.add_sample(LogEvent.TICK_DURATION.value, duration)
                     self.logger.info(f"Tick {self.tick_count} completed in {duration:.2f}s", extra={"duration":duration, "tick_count":self.tick_count})
             except Exception as e:
                 self.logger.error(f"Worker crashed with error: {e}")
