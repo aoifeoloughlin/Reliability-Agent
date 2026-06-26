@@ -12,5 +12,5 @@ class MetricsStore:
         print("Added metric")
         print(self.metrics[metric_name])
     
-    def print_metrics(self):
-        print(self.metrics["TICK_COMPLETED"])
+    def print_metrics(self, metric_store):
+        print(metric_store["TICK_COMPLETED"])
