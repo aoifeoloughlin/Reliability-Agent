@@ -32,4 +32,4 @@ class Scheduler:
                     self.logger.info(f"Tick {self.tick_count} completed in {duration:.2f}s", extra={"duration":duration, "tick_count":self.tick_count})
             except Exception as e:
                 self.logger.error(f"Worker crashed with error: {e}")
-        metric_store.print_metrics()
+        self.metric_store.print_metrics()
