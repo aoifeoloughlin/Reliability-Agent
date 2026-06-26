@@ -13,8 +13,8 @@ class MetricsStore:
         print("Added metric")
         print(self.metrics[metric_name])
     
-    def print_metrics(self, metric_store):
+    def print_metrics(self):
         print(json.dumps(
-            {key: list(values) for key, values in self.metrics.items()},
+            {key: list(values) for key, values in self.metrics.['lambda']},
             indent=2
         ))
