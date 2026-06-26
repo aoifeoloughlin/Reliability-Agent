@@ -65,7 +65,7 @@ def main():
     thread.join() #cleans up multi-threading
     logger.info(str(LogEvent.THREAD_ENDED), extra={"time_monotonic":time.monotonic(), "next_run":next_run})
     with open("output.txt", "w") as f:
-        pickle.dump(d, f)
+        pickle.dump(metric_store, f)
         
 # When running the python command by calling the main directly this is what makes it run
 # This is the entry point
