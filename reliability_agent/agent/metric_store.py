@@ -14,7 +14,6 @@ class MetricsStore:
         print(self.metrics[metric_name])
     
     def print_metrics(self):
-        print(json.dumps(
-            {key: list(values) for key, values in self.metrics['lambda']},
-            indent=2
-        ))
+        for key, values in self.metrics.items():
+            print(f"{key}: {list(values)}")
+        
