@@ -28,8 +28,8 @@ class Scheduler:
                     start=time.monotonic()
                     self.futureTask()  
                     duration = time.monotonic()-start
-                    metric_store.add_sample(self.logEvent.TICK_COMPLETED, tick_count)
-                    metric_store.add_sample(self.logEvent.TICK_DURATION, duration)
+                    self.metric_store.add_sample(self.logEvent.TICK_COMPLETED, tick_count)
+                    self.metric_store.add_sample(self.logEvent.TICK_DURATION, duration)
                     self.logger.info(f"Tick {self.tick_count} completed in {duration:.2f}s", extra={"duration":duration, "tick_count":self.tick_count})
             except Exception as e:
                 self.logger.error(f"Worker crashed with error: {e}")
