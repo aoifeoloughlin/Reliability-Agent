@@ -11,12 +11,13 @@ running = True
 logger = get_logger()
 
 # Handle shut down gracefully
-def handle_shutdown(sigum, frame):
+def handle_shutdown(sigum, frame, metric_store):
     global running
     logger.info(str(LogEvent.HANDLE_SHUTDOWN_SIGNAL_RECEIVED), extra={"sigum":sigum, "running":running})
     running = False
     with open("output.txt", "w") as f:
         f.write(metric_store)
+    
 
 # Collects metrics
 def collect_metrics():
@@ -44,8 +45,8 @@ def main():
     logger.info(str(LogEvent.RELIABILITY_AGENT_STARTED), extra={"interval_seconds":interval, "next_run":next_run})
 
     # Ensure that if you or Systemd end the loop is can handle the shutdown
-    signal.signal(signal.SIGTERM, handle_shutdown) # SIGTERM is what systemd sends 
-    signal.signal(signal.SIGINT, handle_shutdown) # This is for hitting Ctrl+C
+    signal.signal(signal.SIGTERM, handle_shutdown(metric_store)) # SIGTERM is what systemd sends 
+    signal.signal(signal.SIGINT, handle_shutdown(metric_store)) # This is for hitting Ctrl+C
 
     run_thread = threading.Event()
     stop_thread = threading.Event()
