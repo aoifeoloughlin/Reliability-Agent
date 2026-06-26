@@ -4,12 +4,12 @@ from agent.metric_store import MetricsStore
 from agent.log_event_enum import LogEvent as LogEvent
 
 class Scheduler:
-    def __init__(self, running, interval):
+    def __init__(self, running, interval, window_size):
         self.running = running
         self.interval = interval
         self.tick_count = 0
         self.logger = get_logger()
-        self.metric_store = MetricsStore()
+        self.metric_store = MetricsStore(window_size)
         self.logEvent = LogEvent
     
     def futureTask(self):

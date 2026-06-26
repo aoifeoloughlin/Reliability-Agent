@@ -9,7 +9,6 @@ from agent.config_loader import ConfigLoader
 running = True
 
 logger = get_logger()
-metric_store = MetricsStore()
 
 # Handle shut down gracefully
 def handle_shutdown(sigum, frame):
@@ -37,8 +36,10 @@ def main():
     config_loader = ConfigLoader("../reliability_agent/configs/agent.yaml")
     agent_config = config_loader.load_config()
     interval = agent_config["interval_seconds"]
-    scheduler = Scheduler(running, interval)
+    window_size = agent_config["window_size"]
+    scheduler = Scheduler(running, interval, window_size)
     next_run = time.monotonic()
+    metric_store = MetricsStore(window_size)
     metric_store.add_sample(self.logEvent.INTERVAL_SECONDS, interval)
     logger.info(str(LogEvent.RELIABILITY_AGENT_STARTED), extra={"interval_seconds":interval, "next_run":next_run})
 
