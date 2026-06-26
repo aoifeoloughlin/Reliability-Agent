@@ -28,7 +28,7 @@ class Scheduler:
                     start=time.monotonic()
                     self.futureTask()  
                     duration = time.monotonic()-start
-                    self.metric_store.add_sample(self.logEvent.TICK_COMPLETED, tick_count)
+                    self.metric_store.add_sample(self.logEvent.TICK_COMPLETED, self.tick_count)
                     self.metric_store.add_sample(self.logEvent.TICK_DURATION, duration)
                     self.logger.info(f"Tick {self.tick_count} completed in {duration:.2f}s", extra={"duration":duration, "tick_count":self.tick_count})
             except Exception as e:
