@@ -1,4 +1,5 @@
 from collections import defaultdict, deque
+import json
 
 class MetricsStore:
     def __init__(self, window_size):
@@ -13,4 +14,7 @@ class MetricsStore:
         print(self.metrics[metric_name])
     
     def print_metrics(self, metric_store):
-        print(metric_store.items())
+        print(json.dumps(
+            {key: list(values) for key, values in self.metrics.items()},
+            indent=2
+        ))
