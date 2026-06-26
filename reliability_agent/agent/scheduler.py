@@ -1,7 +1,7 @@
 import time, logging, signal, threading
 from agent.logging_content import get_logger
 from agent.metric_store import MetricsStore()
-from enums import LogEvent
+from agent.log_event_enum import LogEvent as LogEvent
 
 class Scheduler:
     def __init__(self, running, interval):

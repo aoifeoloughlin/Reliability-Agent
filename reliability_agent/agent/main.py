@@ -2,7 +2,7 @@ import time, signal, logging, threading, os, subprocess, sys
 from agent.json_formatter import JsonFormatter
 from agent.logging_content import get_logger
 from agent.metric_store import MetricsStore
-from enums import LogEvent
+from agent.log_event_enum import LogEvent as LogEvent
 from pathlib import Path
 from agent.scheduler import Scheduler
 from agent.config_loader import ConfigLoader
