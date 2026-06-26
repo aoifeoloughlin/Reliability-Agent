@@ -40,7 +40,6 @@ def main():
     scheduler = Scheduler(running, interval, window_size)
     next_run = time.monotonic()
     metric_store = MetricsStore(window_size)
-    metric_store.add_sample(LogEvent.INTERVAL_SECONDS.value, interval)
     logger.info(LogEvent.RELIABILITY_AGENT_STARTED.value, extra={"interval_seconds":interval, "next_run":next_run})
 
     # Ensure that if you or Systemd end the loop is can handle the shutdown
