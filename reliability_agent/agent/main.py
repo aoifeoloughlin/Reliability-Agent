@@ -11,12 +11,11 @@ running = True
 logger = get_logger()
 
 # Handle shut down gracefully
-def handle_shutdown(sigum, frame, metric_store):
+def handle_shutdown(sigum, frame):
     global running
     logger.info(str(LogEvent.HANDLE_SHUTDOWN_SIGNAL_RECEIVED), extra={"sigum":sigum, "running":running})
     running = False
-    with open("output.txt", "w") as f:
-        f.write(metric_store)
+    
     
 
 # Collects metrics
@@ -45,8 +44,8 @@ def main():
     logger.info(str(LogEvent.RELIABILITY_AGENT_STARTED), extra={"interval_seconds":interval, "next_run":next_run})
 
     # Ensure that if you or Systemd end the loop is can handle the shutdown
-    signal.signal(signal.SIGTERM, handle_shutdown(metric_store)) # SIGTERM is what systemd sends 
-    signal.signal(signal.SIGINT, handle_shutdown(metric_store)) # This is for hitting Ctrl+C
+    signal.signal(signal.SIGTERM, handle_shutdown) # SIGTERM is what systemd sends 
+    signal.signal(signal.SIGINT, handle_shutdown) # This is for hitting Ctrl+C
 
     run_thread = threading.Event()
     stop_thread = threading.Event()
@@ -64,8 +63,9 @@ def main():
             next_run += interval
     stop_thread.set() #stops the while loop in the scheduler class
     thread.join() #cleans up multi-threading
-
     logger.info(str(LogEvent.THREAD_ENDED), extra={"time_monotonic":time.monotonic(), "next_run":next_run})
+    with open("output.txt", "w") as f:
+        f.write(metric_store)
         
 # When running the python command by calling the main directly this is what makes it run
 # This is the entry point
