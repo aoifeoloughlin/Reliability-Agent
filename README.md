@@ -46,3 +46,6 @@ The primary ojective is prevent massive periods of downtime. Saving time and res
 ## Files/Folders in this directory:
 - pyproject.toml: Projects the metadata. Has the tools config and python version. Basically a package.
 - requirements.txt: Has runtime dependencies only. Creates an easy installation on Linux hosts.
+
+## Running the Agent's main:
+`python -m agent.main` or `python3 -m agent.main`  
