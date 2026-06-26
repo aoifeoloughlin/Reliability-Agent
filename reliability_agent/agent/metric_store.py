@@ -9,3 +9,6 @@ class MetricsStore:
 
     def add_sample(self, metric_name, value):
         self.metrics[metric_name].append(value)
+    
+    def print_metrics(self):
+        print(self.metrics)
