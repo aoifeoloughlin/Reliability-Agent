@@ -1,1 +1,2 @@
-interval_seconds: 10
+interval_seconds: 10 ,
+window_size: 100
