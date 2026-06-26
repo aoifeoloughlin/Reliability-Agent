@@ -24,3 +24,4 @@ stats_json=$(jq -n \
     '{cpu: $cpu, user: $user, nice: $nice, system: $system, idle: $idle, iowait: $iowait, irq: $irq, softirq: $softirq}')
 # echo "JSON CPU: $json_string"
 # echo "STATS CPU: $stats_json"
+
