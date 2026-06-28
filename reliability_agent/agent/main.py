@@ -6,29 +6,21 @@ from agent.log_event_enum import LogEvent as LogEvent
 from pathlib import Path
 from agent.scheduler import Scheduler
 from agent.config_loader import ConfigLoader
+from agent.collectors.cpu import CPUCollector
 running = True
 
 logger = get_logger()
+cpu_collector = CPUCollector()
 
 # Handle shut down gracefully
 def handle_shutdown(sigum, frame):
     global running
     logger.info(str(LogEvent.HANDLE_SHUTDOWN_SIGNAL_RECEIVED), extra={"sigum":sigum, "running":running})
     running = False
-    
-    
 
-# Collects metrics
-def collect_metrics():
-    current_dir = Path(__file__).resolve().parent
-    script_path = current_dir / 'collectors' / 'cpu.sh'
-    result = subprocess.run([script_path], capture_output=True, text=True)
-    logger.info(str(LogEvent.COLLECTING_METRICS_STARTED), extra={"result":result.stdout.strip(), "script_path": str(script_path)})
-
-
-# Detect issues
-def detect_issues():
-    logger.info(str(LogEvent.DETECTING_ISSUES_STARTED))
+def run_collectors():
+    cpu = cpu_collector.collect()
+    #memory = memory_collector...etc
 
 def main():
     global running
@@ -48,7 +40,7 @@ def main():
 
     run_thread = threading.Event()
     stop_thread = threading.Event()
-    thread = threading.Thread(target=scheduler.run, args=(run_thread, stop_thread), daemon=True)
+    thread = threading.Thread(target=scheduler.run, args=(run_thread, stop_thread, run_collectors), daemon=True)
     thread.start()
     logger.info(str(LogEvent.THREAD_STARTED), extra={"running":running})
 
@@ -56,8 +48,6 @@ def main():
     while running:
         if time.monotonic() >= next_run:
             run_thread.set()
-            collect_metrics() # collects the system metrics
-            detect_issues() # finds the issues in the metrics
             interval = float(interval)
             next_run += interval
     stop_thread.set() #stops the while loop in the scheduler class

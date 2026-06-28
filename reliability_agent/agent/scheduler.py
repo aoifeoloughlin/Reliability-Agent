@@ -10,13 +10,9 @@ class Scheduler:
         self.tick_count = 0
         self.logger = get_logger()
         self.metric_store = MetricsStore(window_size)
-    
-    def futureTask(self):
-        self.logger.info("Hello from future task")
 
-    def run(self, run_thread, stop_thread):
+    def run(self, run_thread, stop_thread, collectors_functions):
         while not stop_thread.is_set():
-            self.tick_count += 1
             try:
                 thread = run_thread.wait(timeout=0.5)
                 if stop_thread.is_set():
@@ -24,8 +20,9 @@ class Scheduler:
                 if thread:
                     run_thread.clear()
                     self.logger.info(LogEvent.SCHEDULER_SIGNAL_RECEIVED)
+                    self.tick_count += 1
                     start=time.monotonic()
-                    self.futureTask()  
+                    collectors_functions()  
                     duration = time.monotonic()-start
                     self.metric_store.add_sample(LogEvent.TICK_COMPLETED.value, self.tick_count)
                     self.metric_store.add_sample(LogEvent.TICK_DURATION.value, duration)
