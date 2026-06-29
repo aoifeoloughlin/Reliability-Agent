@@ -10,9 +10,11 @@ class CPUCollector:
     def read_proc_stat(self):
         if(self.cur_sample == None):
             self.cur_sample = psutil.cpu_times()
+            
         else:
             self.prev_sample = self.cur_sample
             self.cur_sample = psutil.cpu_times()
+        print("CUR_SAMPLE", self.cur_sample)
             
         
     def calculate_delta_percentage(self, stat_interval_prev, stat_interval_cur):
