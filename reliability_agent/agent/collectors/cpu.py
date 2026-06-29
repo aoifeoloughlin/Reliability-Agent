@@ -1,4 +1,4 @@
-import psutil
+import psutil, sleep
 # psutil allows python to read and retrieve information on running processes
 
 class CPUCollector:
