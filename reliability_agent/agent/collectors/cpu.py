@@ -8,7 +8,7 @@ class CPUCollector:
         self.cur_sample = None
 
     def read_proc_stat(self):
-        if(self.prev_sample == None):
+        if(self.cur_sample == None):
             self.cur_sample = psutil.cpu_times()
         else:
             self.prev_sample = cur_sample
@@ -35,6 +35,7 @@ class CPUCollector:
     def collect(self):
         print("in collect")
         self.read_proc_stat()
+
         if(self.prev_sample == None):
             print("prev sample is none", self.prev_sample)
             return
