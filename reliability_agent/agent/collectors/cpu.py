@@ -8,12 +8,10 @@ class CPUCollector:
         self.cur_sample = None
 
     def read_proc_stat(self):
-        if(self.cur_sample == None):
-            self.cur_sample = psutil.cpu_times()
+        self.prev_sample = psutil.cpu_times()
+        sleep(1)
+        self.cur_sample = psutil.cpu_times()
             
-        else:
-            self.prev_sample = self.cur_sample
-            self.cur_sample = psutil.cpu_times()
         print("CUR_SAMPLE", self.cur_sample)
             
         
@@ -35,13 +33,7 @@ class CPUCollector:
         return cpu_usage_perc
 
     def collect(self):
-        print("in collect")
         self.read_proc_stat()
-
-        if(self.prev_sample == None):
-            print("prev sample is none", self.prev_sample)
-            return
-        else:
-            cpu_perc = self.calculate_delta_percentage(self.prev_sample, self.cur_sample)
-            print("CPU PERC:", cpu_perc)
-            return cpu_perc
+        cpu_perc = self.calculate_delta_percentage(self.prev_sample, self.cur_sample)
+        print("CPU PERC:", cpu_perc)
+        return cpu_perc
