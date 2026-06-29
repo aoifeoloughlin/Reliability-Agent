@@ -7,7 +7,7 @@ class CPUCollector:
         self.prev_sample = None
         self.cur_sample = None
 
-    def read_proc_stat():
+    def read_proc_stat(self):
         if(self.prev_sample == None):
             self.cur_sample = psutil.cpu_times()
         else:
@@ -15,7 +15,7 @@ class CPUCollector:
             self.cur_sample = psutil.cpu_times()
             
         
-    def calculate_delta_percentage(stat_interval_prev, stat_interval_cur):
+    def calculate_delta_percentage(self, stat_interval_prev, stat_interval_cur):
         total_active_prev = (stat_interval_prev.user +stat_interval_prev.nice + stat_interval_prev.system + stat_interval_prev.irq + stat_interval_prev.idle + stat_interval_prev.iowait+stat_interval_prev.softirq)
         total_idle_prev = (stat_interval_prev.idle+stat_interval_prev.iowait)
 
@@ -25,18 +25,18 @@ class CPUCollector:
         delta_total_active = total_active_cur-total_active_prev
         delta_total_idle = total_idle_cur - total_idle_prev
 
-        return calculate_cpu_percentage(delta_total_active, delta_total_idle)
+        return self.calculate_cpu_percentage(delta_total_active, delta_total_idle)
 
 
-    def calculate_cpu_percentage(total_active, total_idle):
+    def calculate_cpu_percentage(self, total_active, total_idle):
         cpu_usage_perc=( 100 * (total_active - total_idle) / total_active )
         return cpu_usage_perc
 
     def collect(self):
-        read_proc_stat()
+        self.read_proc_stat()
         if(self.prev_sample == None):
             return
         else:
-            cpu_perc = calculate_delta_percentage(self.prev_sample, self.cur_sample)
+            cpu_perc = self.calculate_delta_percentage(self.prev_sample, self.cur_sample)
             print("CPU PERC:", cpu_perc)
             return cpu_perc
