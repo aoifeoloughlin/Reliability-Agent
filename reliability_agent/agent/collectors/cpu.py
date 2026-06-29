@@ -8,6 +8,9 @@ class CPUCollector:
         self.cur_sample = None
 
     def read_proc_stat(self):
+        self.prev_sample = 0
+        self.cur_sample = 0
+        
         self.prev_sample = psutil.cpu_times()
         time.sleep(1)
         self.cur_sample = psutil.cpu_times()
