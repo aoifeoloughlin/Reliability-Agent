@@ -32,7 +32,7 @@ class CPUCollector:
         cpu_usage_perc=( 100 * (total_active - total_idle) / total_active )
         return cpu_usage_perc
 
-    def collect():
+    def collect(self):
         read_proc_stat()
         if(self.prev_sample == None):
             return
