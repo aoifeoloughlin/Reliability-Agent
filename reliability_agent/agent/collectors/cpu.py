@@ -1,4 +1,4 @@
-import psutil, sleep
+import psutil, time
 # psutil allows python to read and retrieve information on running processes
 
 class CPUCollector:
@@ -9,7 +9,7 @@ class CPUCollector:
 
     def read_proc_stat(self):
         self.prev_sample = psutil.cpu_times()
-        sleep(1)
+        time.sleep(1)
         self.cur_sample = psutil.cpu_times()
             
         print("CUR_SAMPLE", self.cur_sample)
