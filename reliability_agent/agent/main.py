@@ -19,6 +19,7 @@ def handle_shutdown(sigum, frame):
     running = False
 
 def run_collectors():
+    print("in the run collectors")
     cpu = cpu_collector.collect()
     #memory = memory_collector...etc
 

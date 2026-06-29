@@ -33,8 +33,10 @@ class CPUCollector:
         return cpu_usage_perc
 
     def collect(self):
+        print("in collect")
         self.read_proc_stat()
         if(self.prev_sample == None):
+            print("prev sample is none", self.prev_sample)
             return
         else:
             cpu_perc = self.calculate_delta_percentage(self.prev_sample, self.cur_sample)
