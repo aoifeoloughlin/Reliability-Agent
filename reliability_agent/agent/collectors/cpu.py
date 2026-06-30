@@ -10,7 +10,6 @@ class CPUCollector:
     def read_proc_stat(self):
         self.prev_sample = 0
         self.cur_sample = 0
-        
         self.prev_sample = psutil.cpu_times()
         time.sleep(1)
         self.cur_sample = psutil.cpu_times()
@@ -39,4 +38,7 @@ class CPUCollector:
         self.read_proc_stat()
         cpu_perc = self.calculate_delta_percentage(self.prev_sample, self.cur_sample)
         print("CPU PERC:", cpu_perc)
+
+        cpu_percent = psutil.cpu_percent(interval=1)
+        print(f"CPU CHECK PERC: {cpu_percent}%")
         return cpu_perc
