@@ -7,10 +7,12 @@ from pathlib import Path
 from agent.scheduler import Scheduler
 from agent.config_loader import ConfigLoader
 from agent.collectors.cpu import CPUCollector
+from agent.collectors.memory import MemoryCollector
 running = True
 
 logger = get_logger()
 cpu_collector = CPUCollector()
+memory_collector = MemoryCollector()
 
 # Handle shut down gracefully
 def handle_shutdown(sigum, frame):
@@ -19,9 +21,8 @@ def handle_shutdown(sigum, frame):
     running = False
 
 def run_collectors():
-    print("in the run collectors")
     cpu = cpu_collector.collect()
-    #memory = memory_collector...etc
+    memory = memory_collector.collect()
 
 def main():
     global running
