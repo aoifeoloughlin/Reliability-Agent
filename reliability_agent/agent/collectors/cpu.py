@@ -18,20 +18,23 @@ class CPUCollector:
             
         
     def calculate_delta_percentage(self, stat_interval_prev, stat_interval_cur):
-        total_active_prev = (stat_interval_prev.user +stat_interval_prev.nice + stat_interval_prev.system + stat_interval_prev.irq + stat_interval_prev.idle + stat_interval_prev.iowait+stat_interval_prev.softirq+stat_interval_prev.steal)
+        total_prev = (stat_interval_prev.user +stat_interval_prev.nice + stat_interval_prev.system + stat_interval_prev.irq + stat_interval_prev.idle + stat_interval_prev.iowait+stat_interval_prev.softirq+stat_interval_prev.steal)
+        total_active_prev = (stat_interval_prev.user +stat_interval_prev.nice + stat_interval_prev.system + stat_interval_prev.irq +stat_interval_prev.softirq+stat_interval_prev.steal)
         total_idle_prev = (stat_interval_prev.idle+stat_interval_prev.iowait)
 
-        total_active_cur = (stat_interval_cur.user +stat_interval_cur.nice + stat_interval_cur.system + stat_interval_cur.irq + stat_interval_cur.idle + stat_interval_cur.iowait+stat_interval_cur.softirq+stat_interval_cur.steal)
+        total_cur = (stat_interval_cur.user +stat_interval_cur.nice + stat_interval_cur.system + stat_interval_cur.irq + stat_interval_cur.idle + stat_interval_cur.iowait+stat_interval_cur.softirq+stat_interval_cur.steal)
+        total_active_cur = (stat_interval_cur.user +stat_interval_cur.nice + stat_interval_cur.system + stat_interval_cur.irq +stat_interval_cur.softirq+stat_interval_cur.steal)
         total_idle_cur = (stat_interval_cur.idle+stat_interval_cur.iowait)
 
-        delta_total_active = total_active_cur-total_active_prev
+        delta_total_active = total_active_cur - total_active_prev
+        delta_total = total_cur-total_prev
         delta_total_idle = total_idle_cur - total_idle_prev
 
-        return self.calculate_cpu_percentage(delta_total_active, delta_total_idle)
+        return self.calculate_cpu_percentage(delta_total_active, delta_total_idle, delta_total)
 
 
-    def calculate_cpu_percentage(self, total_active, total_idle):
-        cpu_usage_perc=( (100 * (total_active - total_idle)) / total_active )
+    def calculate_cpu_percentage(self, total_active, total_idle, total):
+        cpu_usage_perc=( (100 * (total_active - total_idle)) / total )
         return cpu_usage_perc
 
     def collect(self):
