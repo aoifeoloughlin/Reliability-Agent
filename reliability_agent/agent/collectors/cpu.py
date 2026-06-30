@@ -31,6 +31,7 @@ class CPUCollector:
 
 
     def calculate_cpu_percentage(self, total_idle, total):
+        print("cpu total: ", total)
         cpu_usage_perc=( (100 * (total - total_idle)) / total)
         return cpu_usage_perc
 
