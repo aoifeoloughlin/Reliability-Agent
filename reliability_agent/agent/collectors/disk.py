@@ -6,4 +6,5 @@ class DiskCollector:
         total, used, free = shutil.disk_usage(path)
         print((used/total) * 100)
         return (used/total) * 100
+        
 
