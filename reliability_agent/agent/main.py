@@ -25,7 +25,7 @@ def handle_shutdown(sigum, frame):
 def run_collectors():
     cpu = cpu_collector.collect()
     memory = memory_collector.collect()
-    disk = disk_collector.read_disk_usage()
+    disk = disk_collector.collect()
 
 def main():
     global running

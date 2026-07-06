@@ -1,9 +1,59 @@
 import shutil
 class DiskCollector:
+    def __init__():
+        self.PSEUDO_FILESYSTEMS = {
+            "proc",
+            "sysfs",
+            "tmpfs",
+            "devtmpfs",
+            "devpts",
+            "cgroup",
+            "cgroup2",
+            "securityfs",
+            "tracefs",
+            "overlay",
+            "squashfs",
+            "mqueue",
+            "debugfs",
+            "pstore",
+            "configfs",
+            "fusectl",
+        }
+        self.usage_stats = []
 
-    def read_disk_usage(path):
-        total, used, free = shutil.disk_usage(path)
-        print((used/total) * 100)
-        return (used/total) * 100
-
-
+    def collect():
+        try:
+            partitions = psutil.disk_partitions(all=False)
+        except Exception as e:
+            logging.error("Failed to retrieve disk partitions: %s", e)
+            return []
+        return self.get_usage_metrics(partitions)
+        
+    def get_usage_metrics(partitions)
+        for partition in partitions:
+            if partition.fstype in self.PSEUDO_FILESYSTEMS:
+                continue
+            
+            try:
+                usage = psutil.disk_usage(partition.mountpoint)
+                self.usage_stats.append({
+                    "filesystem": partition.device,
+                    "mount_point": partition.mountpoint,
+                    "filesystem_type": partition.fstype,
+                    "usage_percent": usage.percent,
+                })
+            except PermissionError:
+                logging.warning(
+                    "Permission denied accessing %s",
+                    partition.mountpoint,
+                )
+                continue
+            except Exception as e:
+                logging.warning(
+                    "Failed to collect usage for %s: %s",
+                    partition.mountpoint,
+                    e,
+                )
+                continue
+        return usage_stats
+        
