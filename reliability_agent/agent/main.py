@@ -8,11 +8,13 @@ from agent.scheduler import Scheduler
 from agent.config_loader import ConfigLoader
 from agent.collectors.cpu import CPUCollector
 from agent.collectors.memory import MemoryCollector
+from agent.collectors.disk import DiskCollector
 running = True
 
 logger = get_logger()
 cpu_collector = CPUCollector()
 memory_collector = MemoryCollector()
+disk_collector = DiskCollector()
 
 # Handle shut down gracefully
 def handle_shutdown(sigum, frame):
@@ -23,6 +25,7 @@ def handle_shutdown(sigum, frame):
 def run_collectors():
     cpu = cpu_collector.collect()
     memory = memory_collector.collect()
+    disk = disk_collector.read_disk_usage()
 
 def main():
     global running
