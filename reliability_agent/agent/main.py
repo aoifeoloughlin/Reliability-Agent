@@ -9,7 +9,7 @@ from agent.config_loader import ConfigLoader
 from agent.collectors.cpu import CPUCollector
 from agent.collectors.memory import MemoryCollector
 from agent.collectors.disk import DiskCollector
-from agent.detectors.disk import DiskDetector
+from agent.detectors.disk_detection import DiskDetector
 running = True
 
 def __init__(self, threshold=80):
