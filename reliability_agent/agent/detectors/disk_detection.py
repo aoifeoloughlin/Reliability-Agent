@@ -6,7 +6,7 @@ class DiskDetector:
         inode_critical_threshold = yaml_config["inode_exhaustion_critical_threshold"]
         inode_perc = disk_data[0]["inode_perc"]
 
-        if inode_perc < inode_threshold:
+        if inode_perc < inode_warning_threshold:
             disk_usage_level = "NORMAL"
         elif (inode_perc < inode_warning_threshold) and (inode_perc > inode_critical_threshold):
             disk_usage_level = "WARNING"
