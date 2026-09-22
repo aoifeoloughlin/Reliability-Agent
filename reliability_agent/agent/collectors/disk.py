@@ -17,7 +17,9 @@ class DiskCollector:
             'iso9660', 
             'udf',
             '/sys/',
-            '/snap/'
+            'nsfs',
+            'binfmt_misc',
+
         }
         self.usage_stats = []
         
@@ -28,7 +30,7 @@ class DiskCollector:
             if partition.device.startswith('/dev/loop'):  
                 continue
             try:
-                usage = psutil.disk_usage(partition.mountpoint)
+                usage = psutil.disk_usage('/')
                 self.usage_stats.append({
                     "fstype": partition.fstype,
                     "mount_point": partition.mountpoint,
