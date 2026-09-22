@@ -34,9 +34,7 @@ class DiskCollector:
             try:
                 usage = psutil.disk_usage(partition.mountpoint)
                 self.usage_stats.append({
-                    "filesystem": partition.device,
                     "mount_point": partition.mountpoint,
-                    "filesystem_type": partition.fstype,
                     "usage_percent": usage.percent,
                 })
             except PermissionError:
