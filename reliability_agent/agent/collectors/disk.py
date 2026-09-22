@@ -35,5 +35,5 @@ class DiskCollector:
         stat = os.statvfs('/') # checking used inodes
         inode_used = stat.f_files-stat.f_ffree
         total_inode = stat.f_files
-        return (stat.f_favail/total_inode)*100
+        return (inode_used/total_inode)*100
         
