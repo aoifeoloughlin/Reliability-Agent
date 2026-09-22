@@ -9,7 +9,7 @@ class DiskDetector:
 
         if inode_perc < inode_threshold:
             disk_usage_level = "NORMAL"
-        else if inode_perc < inode_warning_threshold and inode_perc > inode_critical_threshold:
+        else if (inode_perc < inode_warning_threshold) and (inode_perc > inode_critical_threshold):
             disk_usage_level = "WARNING"
         else:
             disk_usage_level = "CRITICAL"
