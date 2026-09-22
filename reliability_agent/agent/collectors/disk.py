@@ -1,6 +1,6 @@
 import shutil
 class DiskCollector:
-    def __init__():
+    def __init__(self):
         self.PSEUDO_FILESYSTEMS = {
             "proc",
             "sysfs",
@@ -21,7 +21,7 @@ class DiskCollector:
         }
         self.usage_stats = []
 
-    def collect():
+    def collect(self):
         try:
             partitions = psutil.disk_partitions(all=False)
         except Exception as e:
@@ -29,7 +29,7 @@ class DiskCollector:
             return []
         return self.get_usage_metrics(partitions)
         
-    def get_usage_metrics(partitions):
+    def get_usage_metrics(self, partitions):
         for partition in partitions:
             if partition.fstype in self.PSEUDO_FILESYSTEMS:
                 continue
