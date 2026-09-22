@@ -1,0 +1,2 @@
+inode_exhaustion_warning_threshold: 80
+inode_exhaustion_critical_threshold: 95
