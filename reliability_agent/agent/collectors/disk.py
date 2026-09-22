@@ -5,7 +5,7 @@ class DiskCollector:
         
     def collect(self):
         for partition in psutil.disk_partitions(all=True):
-            if partition.mountpoint != '/':
+            if partition.mountpoint != '/': # the code trys to get the partition with the root
                 continue
             try:
                 usage = psutil.disk_usage('/')
