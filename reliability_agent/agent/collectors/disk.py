@@ -1,4 +1,4 @@
-import shutil, logging, psutil
+import shutil, logging, psutil, logger
 class DiskCollector:
     def __init__(self):
         self.PSEUDO_FILESYSTEMS = {
@@ -55,5 +55,6 @@ class DiskCollector:
                     e,
                 )
                 continue
+        self.logger.info(f"USAGE_STATS {self.usage_stats}")
         return self.usage_stats
         
