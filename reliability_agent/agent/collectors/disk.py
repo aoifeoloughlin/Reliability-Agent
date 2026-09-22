@@ -31,9 +31,6 @@ class DiskCollector:
         
     def get_usage_metrics(self, partitions):
         for partition in partitions:
-            if partition.fstype in self.PSEUDO_FILESYSTEMS:
-                continue
-            
             try:
                 usage = psutil.disk_usage(partition.mountpoint)
                 self.usage_stats.append({
