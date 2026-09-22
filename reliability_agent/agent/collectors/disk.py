@@ -1,4 +1,4 @@
-import shutil, psutil, logging, subprocess
+import shutil, psutil, logging, os
 class DiskCollector:
     def __init__(self):
         self.usage_stats = []
@@ -9,7 +9,8 @@ class DiskCollector:
                 continue
             try:
                 usage = psutil.disk_usage('/')
-                inode_used = subprocess.check_output("df '/' --output=iused", shell=True)
+                stat = os.statvfs('/')
+                inode_used = stat.f_files - stat.f_ffree
                 self.usage_stats.append({
                     "device": partition.device,
                     "mount_point": partition.mountpoint,
