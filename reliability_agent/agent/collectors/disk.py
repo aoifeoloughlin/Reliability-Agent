@@ -20,20 +20,13 @@ class DiskCollector:
             "fusectl",
         }
         self.usage_stats = []
-
-    def collect(self):
-        try:
-            partitions = psutil.disk_partitions(all=False)
-        except Exception as e:
-            logging.error("Failed to retrieve disk partitions: %s", e)
-            return []
-        return self.get_usage_metrics(partitions)
         
-    def get_usage_metrics(self, partitions):
-        for partition in partitions:
+    def collect(self):
+        for partition in psutil.disk_partitions(all=False):
             try:
                 usage = psutil.disk_usage(partition.mountpoint)
                 self.usage_stats.append({
+                    "device": partition.device,
                     "mount_point": partition.mountpoint,
                     "usage_percent": usage.percent,
                 })
