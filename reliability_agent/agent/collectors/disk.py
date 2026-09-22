@@ -16,6 +16,7 @@ class DiskCollector:
             'securityfs',
             'iso9660', 
             'udf',
+            '/sys/',
             '/snap/'
         }
         self.usage_stats = []
@@ -29,7 +30,7 @@ class DiskCollector:
             try:
                 usage = psutil.disk_usage(partition.mountpoint)
                 self.usage_stats.append({
-                    "device": partition.device,
+                    "fstype": partition.fstype,
                     "mount_point": partition.mountpoint,
                     "usage_percent": usage.percent,
                 })
