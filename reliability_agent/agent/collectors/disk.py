@@ -7,8 +7,6 @@ class DiskCollector:
             'devfs', 
             'devtmpfs', 
             'tmpfs',
-            'overlay', 
-            'aufs', 
             'cgroup', 
             'cgroup2',
             'pstore', 
@@ -17,8 +15,8 @@ class DiskCollector:
             'hugetlbfs', 
             'securityfs',
             'iso9660', 
-            'udf',     
-            'squashfs'
+            'udf',
+            '/snap/'
         }
         self.usage_stats = []
         
