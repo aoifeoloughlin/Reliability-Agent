@@ -21,8 +21,7 @@ class DiskCollector:
         self.usage_stats = []
         
     def collect(self):
-        for partition in psutil.disk_partitions(all=False):
-            print(f"Total partitions found: {(psutil.disk_partitions(all=False))}")
+        for partition in psutil.disk_partitions(all=True):
             if partition.fstype in self.PSEUDO_FILESYSTEMS:
                 continue
             if partition.device.startswith('/dev/loop'):  
