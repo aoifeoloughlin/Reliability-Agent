@@ -2,27 +2,32 @@ import shutil, psutil
 class DiskCollector:
     def __init__(self):
         self.PSEUDO_FILESYSTEMS = {
-            "proc",
-            "sysfs",
-            "tmpfs",
-            "devtmpfs",
-            "devpts",
-            "cgroup",
-            "cgroup2",
-            "securityfs",
-            "tracefs",
-            "overlay",
-            "squashfs",
-            "mqueue",
-            "debugfs",
-            "pstore",
-            "configfs",
-            "fusectl",
+            'proc', 
+            'sysfs', 
+            'devfs', 
+            'devtmpfs', 
+            'tmpfs',
+            'overlay', 
+            'aufs', 
+            'cgroup', 
+            'cgroup2',
+            'pstore', 
+            'debugfs', 
+            'mqueue', 
+            'hugetlbfs', 
+            'securityfs',
+            'iso9660', 
+            'udf',     
+            'squashfs'
         }
         self.usage_stats = []
         
     def collect(self):
         for partition in psutil.disk_partitions(all=False):
+            if partition.fstype in PSEUDO_FILESYSTEMS:
+                continue
+            if partition.device.startswith('/dev/loop'):  
+                continue
             try:
                 usage = psutil.disk_usage(partition.mountpoint)
                 self.usage_stats.append({
