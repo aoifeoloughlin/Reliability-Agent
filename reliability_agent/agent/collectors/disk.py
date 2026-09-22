@@ -29,7 +29,7 @@ class DiskCollector:
             return []
         return self.get_usage_metrics(partitions)
         
-    def get_usage_metrics(partitions)
+    def get_usage_metrics(partitions):
         for partition in partitions:
             if partition.fstype in self.PSEUDO_FILESYSTEMS:
                 continue
