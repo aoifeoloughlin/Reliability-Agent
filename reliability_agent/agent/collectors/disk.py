@@ -24,7 +24,7 @@ class DiskCollector:
         
     def collect(self):
         for partition in psutil.disk_partitions(all=False):
-            if partition.fstype in PSEUDO_FILESYSTEMS:
+            if partition.fstype in self.PSEUDO_FILESYSTEMS:
                 continue
             if partition.device.startswith('/dev/loop'):  
                 continue
