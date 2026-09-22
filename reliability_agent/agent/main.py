@@ -44,7 +44,7 @@ def main():
     # Load Config
     agent_config_loader = ConfigLoader("../reliability_agent/configs/agent.yaml")
     agent_config = agent_config_loader.load_config()
-    disk_config_loader = ConfigLoader("../reliability_agent/detectors/thresholds/disk_thresholds.yaml")
+    disk_config_loader = ConfigLoader("../reliability_agent/agent/detectors/thresholds/disk_thresholds.yaml")
     self.disk_config = disk_config_loader.load_config()
     interval = agent_config["interval_seconds"]
     window_size = agent_config["window_size"]
