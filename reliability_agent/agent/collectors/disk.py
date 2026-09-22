@@ -1,4 +1,4 @@
-import shutil, logging
+import shutil, logging, psutil
 class DiskCollector:
     def __init__(self):
         self.PSEUDO_FILESYSTEMS = {
