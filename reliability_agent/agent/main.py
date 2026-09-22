@@ -42,7 +42,7 @@ class ReliabilityAgent:
 
     def run_detectors(self):
         disk_detection =  self.disk_detector.detect(self.disk_config, self.disk)
-        logger.info(LogEvent.COLLECTED_METRICS, extra={"disk thresh":disk_detection})
+        logger.info(LogEvent.DETECTION_STARTED, extra={"disk thresh":disk_detection})
 
 
     def main(self):
@@ -61,7 +61,7 @@ class ReliabilityAgent:
 
         run_thread = threading.Event()
         stop_thread = threading.Event()
-        thread = threading.Thread(target=scheduler.run, args=(run_thread, stop_thread, self.run_collectors), daemon=True)
+        thread = threading.Thread(target=scheduler.run, args=(run_thread, stop_thread, self.run_collectors, self.run_detectors), daemon=True)
         thread.start()
         logger.info(str(LogEvent.THREAD_STARTED), extra={"running":self.running})
 

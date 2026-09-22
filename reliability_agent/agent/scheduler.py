@@ -11,7 +11,7 @@ class Scheduler:
         self.logger = get_logger()
         self.metric_store = MetricsStore(window_size)
 
-    def run(self, run_thread, stop_thread, collectors_functions):
+    def run(self, run_thread, stop_thread, collectors_functions, detectors_functions):
         while not stop_thread.is_set():
             try:
                 thread = run_thread.wait(timeout=0.5)
@@ -23,6 +23,7 @@ class Scheduler:
                     self.tick_count += 1
                     start=time.monotonic()
                     collectors_functions()  
+                    detectors_functions()
                     duration = time.monotonic()-start
                     self.metric_store.add_sample(LogEvent.TICK_COMPLETED.value, self.tick_count)
                     self.metric_store.add_sample(LogEvent.TICK_DURATION.value, duration)
