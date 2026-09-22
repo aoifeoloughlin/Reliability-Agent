@@ -1,4 +1,4 @@
-import psutil, time
+import psutil, time, logging
 # psutil allows python to read and retrieve information on running processes
 
 class CPUCollector:
@@ -37,5 +37,5 @@ class CPUCollector:
     def collect(self):
         self.read_proc_stat()
         cpu_perc = self.calculate_delta_percentage(self.prev_sample, self.cur_sample)
-        self.logger.info(f"CPU_PERC {self.cpu_perc}")
+        self.logging.info(f"CPU_PERC {self.cpu_perc}")
         return cpu_perc
