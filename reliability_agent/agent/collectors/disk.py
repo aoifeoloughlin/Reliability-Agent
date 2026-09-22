@@ -1,4 +1,4 @@
-import shutil, psutil, logging
+import shutil, psutil, logging, subprocess
 class DiskCollector:
     def __init__(self):
         self.usage_stats = []
@@ -9,10 +9,12 @@ class DiskCollector:
                 continue
             try:
                 usage = psutil.disk_usage('/')
+                inode_used = subprocess.check_output("df '/' --output=iused", shell=True)
                 self.usage_stats.append({
                     "device": partition.device,
                     "mount_point": partition.mountpoint,
                     "usage_percent": usage.percent,
+                    "inode_used": inode_used
                 })
             except PermissionError:
                 logging.warning(
