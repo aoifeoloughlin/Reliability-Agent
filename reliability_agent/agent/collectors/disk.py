@@ -55,5 +55,5 @@ class DiskCollector:
                     e,
                 )
                 continue
-        return usage_stats
+        return self.usage_stats
         
