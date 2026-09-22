@@ -1,4 +1,4 @@
-import time, signal, threading,
+import time, signal, threading
 from agent.json_formatter import JsonFormatter
 from agent.logging_content import get_logger
 from agent.metric_store import MetricsStore
