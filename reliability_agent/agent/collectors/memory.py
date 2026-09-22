@@ -16,4 +16,5 @@ class MemoryCollector:
     def collect(self):
         self.read_proc_meminfo()
         memory_used_perc = self.calculate_used_memory_perc()
+        self.logger.info(f"MEMORY_USED_PERC {self.memory_used_perc}")
         return memory_used_perc
