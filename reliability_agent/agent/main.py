@@ -9,12 +9,18 @@ from agent.config_loader import ConfigLoader
 from agent.collectors.cpu import CPUCollector
 from agent.collectors.memory import MemoryCollector
 from agent.collectors.disk import DiskCollector
+from agent.detectors.disk import DiskDetector
 running = True
+
+def __init__(self, threshold=80):
+    self.disk = None
+    self.disk_config = None
 
 logger = get_logger()
 cpu_collector = CPUCollector()
 memory_collector = MemoryCollector()
 disk_collector = DiskCollector()
+disk_detector = DiskDetector()
 
 # Handle shut down gracefully
 def handle_shutdown(sigum, frame):
@@ -25,14 +31,21 @@ def handle_shutdown(sigum, frame):
 def run_collectors():
     cpu = cpu_collector.collect()
     memory = memory_collector.collect()
-    disk = disk_collector.collect()
-    logger.info(LogEvent.COLLECTED_METRICS, extra={"cpu_perc":cpu, "memory_used_perc":memory, "disk_usage_stats":disk})
+    self.disk = disk_collector.collect()
+    logger.info(LogEvent.COLLECTED_METRICS, extra={"cpu_perc":cpu, "memory_used_perc":memory, "disk_usage_stats":self.disk})
+
+def run_detectors():
+    disk_detection =  disk_detector.detect(self.disk_config, self.disk)
+    logger.info(LogEvent.COLLECTED_METRICS, extra={"disk thresh":disk_detection})
+
 
 def main():
     global running
     # Load Config
-    config_loader = ConfigLoader("../reliability_agent/configs/agent.yaml")
-    agent_config = config_loader.load_config()
+    agent_config_loader = ConfigLoader("../reliability_agent/detectors/thresholds/disk_thresholds.yaml")
+    agent_config = agent_config_loader.load_config()
+    disk_config_loader = ConfigLoader("../reliability_agent/configs/agent.yaml")
+    self.disk_config = disk_config_loader.load_config()
     interval = agent_config["interval_seconds"]
     window_size = agent_config["window_size"]
     scheduler = Scheduler(running, interval, window_size)
