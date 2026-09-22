@@ -9,7 +9,7 @@ class DiskCollector:
                 continue
             try:
                 usage = psutil.disk_usage('/')
-                stat = os.statvfs('/')
+                stat = os.statvfs()
                 inode_used = stat.f_files - stat.f_ffree
                 self.usage_stats.append({
                     "device": partition.device,
