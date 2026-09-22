@@ -26,6 +26,7 @@ def run_collectors():
     cpu = cpu_collector.collect()
     memory = memory_collector.collect()
     disk = disk_collector.collect()
+    logger.info(LogEvent.COLLECTED_METRICS, extra={"cpu_perc":cpu, "memory_used_perc":memory, "disk_usage_stats":disk})
 
 def main():
     global running
