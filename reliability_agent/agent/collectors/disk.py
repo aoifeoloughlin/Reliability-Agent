@@ -1,26 +1,6 @@
 import shutil, psutil, logging
 class DiskCollector:
     def __init__(self):
-        self.PSEUDO_FILESYSTEMS = {
-            'proc', 
-            'sysfs', 
-            'devfs', 
-            'devtmpfs', 
-            'tmpfs',
-            'cgroup', 
-            'cgroup2',
-            'pstore', 
-            'debugfs', 
-            'mqueue', 
-            'hugetlbfs', 
-            'securityfs',
-            'iso9660', 
-            'udf',
-            '/sys/',
-            'nsfs',
-            'binfmt_misc',
-
-        }
         self.usage_stats = []
         
     def collect(self):
@@ -30,7 +10,7 @@ class DiskCollector:
             try:
                 usage = psutil.disk_usage('/')
                 self.usage_stats.append({
-                    "fstype": partition.fstype,
+                    "device": partition.device,
                     "mount_point": partition.mountpoint,
                     "usage_percent": usage.percent,
                 })
