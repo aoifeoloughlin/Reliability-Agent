@@ -1,7 +1,6 @@
 import time, signal, threading
 from agent.json_formatter import JsonFormatter
 from agent.logging_content import get_logger
-from agent.metric_store import MetricsStore
 from agent.log_event_enum import LogEvent as LogEvent
 from agent.scheduler import Scheduler
 from agent.config_loader import ConfigLoader
@@ -27,7 +26,6 @@ class ReliabilityAgent:
         window_size = self.agent_config["window_size"]
         scheduler = Scheduler(self.running, interval, window_size)
         next_run = time.monotonic()
-        metric_store = MetricsStore(window_size)
         logger.info(LogEvent.RELIABILITY_AGENT_STARTED.value, extra={"interval_seconds":interval, "next_run":next_run})
 
         # Ensure that if you or Systemd end the loop is can handle the shutdown
