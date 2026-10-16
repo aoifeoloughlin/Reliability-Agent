@@ -5,26 +5,37 @@ from agent.log_event_enum import LogEvent as LogEvent
 from agent.collectors.cpu import CPUCollector
 from agent.collectors.memory import MemoryCollector
 from agent.collectors.disk import DiskCollector
+from agent.config_loader import ConfigLoader
+from agent.detectors.disk_detection import DiskDetector
 
 class Scheduler:
     def __init__(self, running, interval, window_size):
         self.running = running
         self.interval = interval
         self.disk = None
+        self.cpu = None
+        self.memory = None
         self.tick_count = 0
         self.logger = get_logger()
         self.metric_store = MetricsStore(window_size)
         self.cpu_collector = CPUCollector()
         self.memory_collector = MemoryCollector()
         self.disk_collector = DiskCollector()
+        disk_config_loader = ConfigLoader("../reliability_agent/agent/detectors/thresholds/disk_thresholds.yaml")
+        self.disk_config = disk_config_loader.load_config()
+        self.disk_detector = DiskDetector()
 
     def run_collectors(self):
-        cpu = self.cpu_collector.collect()
-        memory = self.memory_collector.collect()
+        self.cpu = self.cpu_collector.collect()
+        self.memory = self.memory_collector.collect()
         self.disk = self.disk_collector.collect()
-        logger.info(LogEvent.COLLECTED_METRICS, extra={"cpu_perc":cpu, "memory_used_perc":memory, "disk_usage_stats":self.disk})
+        logger.info(LogEvent.COLLECTED_METRICS, extra={"cpu_perc":self.cpu, "memory_used_perc":self.memory, "disk_usage_stats":self.disk})
 
-    def run(self, run_thread, stop_thread, detectors_functions):
+    def run_detectors(self):
+        disk_detection =  self.disk_detector.detect(self.disk_config, self.disk)
+        logger.info(LogEvent.DETECTION_STARTED, extra={"disk thresh":disk_detection})
+
+    def run(self, run_thread, stop_thread):
         while not stop_thread.is_set():
             try:
                 thread = run_thread.wait(timeout=0.5)
@@ -36,7 +47,7 @@ class Scheduler:
                     self.tick_count += 1
                     start=time.monotonic()
                     self.run_collectors()  
-                    detectors_functions()
+                    self.run_detectors()
                     duration = time.monotonic()-start
                     self.metric_store.add_sample(LogEvent.TICK_COMPLETED.value, self.tick_count)
                     self.metric_store.add_sample(LogEvent.TICK_DURATION.value, duration)
