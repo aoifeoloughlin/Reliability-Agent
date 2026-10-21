@@ -1,5 +1,5 @@
-import time, timezone, logging, signal, threading
-from datetime import datetime
+import time, logging, signal, threading
+from datetime import datetime, timezone
 from agent.logging_content import get_logger
 from agent.metric_store import MetricsStore
 from agent.log_event_enum import LogEvent as LogEvent
