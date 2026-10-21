@@ -16,3 +16,6 @@ class MetricsStore:
         for key, values in self.metrics.items():
             print(f"{key}: {list(values)}")
         
+        with open('metrics_logs.json', 'w') as file:
+            file.write(json.dumps(self.metrics, indent=4))
+        
