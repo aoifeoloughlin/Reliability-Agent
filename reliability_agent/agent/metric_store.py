@@ -17,5 +17,5 @@ class MetricsStore:
             print(f"{key}: {list(values)}")
         
         with open('metrics_logs.json', 'w') as file:
-            file.write(json.dumps(self.metrics, indent=4))
+            file.write(json.dumps(self.metrics.isoformat(), indent=4))
         
