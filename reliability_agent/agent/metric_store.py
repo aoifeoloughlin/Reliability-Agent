@@ -1,4 +1,5 @@
 from collections import defaultdict, deque
+from dataclasses import asdict
 import json
 
 class MetricsStore:
@@ -13,9 +14,11 @@ class MetricsStore:
         print(self.metrics[metric_name])
     
     def print_metrics(self):
-        for key, values in self.metrics.items():
-            print(f"{key}: {list(values)}")
-        
+        data = {
+            metric_type: [asdict(metric_sample) for metric_sample in self.metrics]     
+            for metric_type, self.metrics in store._buf.items()
+        }
+
         with open('metrics_logs.json', 'w') as file:
-            file.write(json.dumps(self.metrics.isoformat(), indent=4))
+            file.write(json.dumps(data, indent=4))
         
