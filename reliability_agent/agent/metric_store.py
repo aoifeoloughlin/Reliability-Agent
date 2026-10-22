@@ -1,4 +1,6 @@
 from collections import defaultdict, deque
+from dataclasses import asdict
+from datetime import datetime, timezone
 import json
 
 class MetricsStore:
@@ -13,6 +15,16 @@ class MetricsStore:
         print(self.metrics[metric_name])
     
     def print_metrics(self):
-        for key, values in self.metrics.items():
-            print(f"{key}: {list(values)}")
-        
+        curtime = datetime.now(timezone.utc)
+        metrics_file_name = "metrics_logs_{}.json".format(curtime)
+        with open(metrics_file_name, 'w') as file:
+            file.write(json.dumps(self.getLastNSamples(self.window_size), indent=2, default=str))
+
+    def getLastNSamples(self, window_size):
+        while(len(self.metrics) > window_size and len(self.metrics > 1)):
+            self.metrics.popleft()
+        print("LIST VERSION", self.to_dict(self.metrics))
+        return self.to_dict(self.metrics)
+    
+    def to_dict(self, metrics):
+        return {t: list(dq) for t, dq in metrics.items()}
