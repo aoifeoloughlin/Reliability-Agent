@@ -16,7 +16,7 @@ class MetricsStore:
     
     def print_metrics(self):
         with open('metrics_logs.json', 'w') as file:
-            file.write(json.dumps(getLastNSamples(self.window_size), indent=2, default=str))
+            file.write(json.dumps(self.getLastNSamples(self.window_size), indent=2, default=str))
 
     def getLastNSamples(self, window_size):
         while(len(self.metrics) > window_size and len(self.metrics > 1)):
