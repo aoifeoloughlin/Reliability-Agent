@@ -20,6 +20,7 @@ class MetricsStore:
         #     for metric_type, self.metrics in self._buf.items()
         # }
         with open('metrics_logs.json', 'w') as file:
+            print(self.to_dict())
             file.write(json.dumps(self.to_dict(), indent=2))
 
     def to_dict(self):
