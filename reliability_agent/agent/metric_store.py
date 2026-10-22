@@ -8,6 +8,7 @@ class MetricsStore:
         self.metrics = defaultdict(
             lambda: deque(maxlen=self.window_size)
         )
+        self._buf = {t: deque(maxlen=window_size) for t in self.metrics}
 
     def add_sample(self, metric_name, value):
         self.metrics[metric_name].append(value)
@@ -22,4 +23,4 @@ class MetricsStore:
             file.write(json.dumps(self.to_dict(), indent=2))
 
     def to_dict(self):
-        return {t: [asdict(metric_sample) for metric_sample in self.metrics] for t, self.metrics in self._buf.items()}
+        return {t: [asdict(metric_sample) for metric_sample in self.metrics] for t, self.metrics in self.metrics.items()}
