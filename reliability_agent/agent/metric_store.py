@@ -19,6 +19,6 @@ class MetricsStore:
             file.write(json.dumps(getLastNSamples(self.window_size), indent=2, default=str))
 
     def getLastNSamples(self, window_size):
-        while(len(self.metrics) > window_size && len(self.metrics > 1)):
+        while(len(self.metrics) > window_size and len(self.metrics > 1)):
             self.metrics.popleft()
         return list(self.metrics)
