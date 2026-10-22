@@ -25,4 +25,4 @@ class MetricsStore:
         return list(self.to_dict(self.metrics))
     
     def to_dict(self, metrics):
-        return {t: list(dq) for t, dq in metrics.items()}
+        return {t: list(dq) for t, dq in metrics.values()}
