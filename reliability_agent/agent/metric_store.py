@@ -18,7 +18,7 @@ class MetricsStore:
     def print_metrics(self):
         curtime = datetime.now(timezone.utc)
         metrics_file_name = "metrics_logs_${curtime}.json"
-        with open('metrics_logs.json', 'w') as file:
+        with open(metrics_file_name, 'w') as file:
             file.write(json.dumps(self.getLastNSamples(self.window_size), indent=2, default=str))
 
     def getLastNSamples(self, window_size):
