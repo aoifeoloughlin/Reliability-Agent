@@ -21,8 +21,8 @@ class MetricsStore:
     def getLastNSamples(self, window_size):
         while(len(self.metrics) > window_size and len(self.metrics > 1)):
             self.metrics.popleft()
-        print("LIST VERSION", list(self.to_dict(self.metrics)))
-        return list(self.to_dict(self.metrics))
+        print("LIST VERSION", self.to_dict(self.metrics))
+        return self.to_dict(self.metrics)
     
     def to_dict(self, metrics):
         return {t: list(dq) for t, dq in metrics.items()}
