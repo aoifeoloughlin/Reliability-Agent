@@ -5,7 +5,6 @@ from agent.log_event_enum import LogEvent as LogEvent
 from agent.scheduler import Scheduler
 from agent.config_loader import ConfigLoader
 running = True
-
 logger = get_logger()
 
 class ReliabilityAgent:
@@ -13,8 +12,7 @@ class ReliabilityAgent:
         self.running = True
         agent_config_loader = ConfigLoader("../reliability_agent/configs/agent.yaml")
         self.agent_config = agent_config_loader.load_config()
-
-       
+   
     # Handle shut down gracefully
     def handle_shutdown(self, sigum, frame):
         logger.info(str(LogEvent.HANDLE_SHUTDOWN_SIGNAL_RECEIVED), extra={"sigum":sigum, "running":running})
@@ -48,8 +46,7 @@ class ReliabilityAgent:
         stop_thread.set() #stops the while loop in the scheduler class
         thread.join() #cleans up multi-threading
         logger.info(str(LogEvent.THREAD_ENDED), extra={"time_monotonic":time.monotonic(), "next_run":next_run})
-        
-            
+                 
     # When running the python command by calling the main directly this is what makes it run
     # This is the entry point
 if __name__ == "__main__":
