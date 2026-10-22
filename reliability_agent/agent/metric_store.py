@@ -1,6 +1,7 @@
 from collections import defaultdict, deque
 from dataclasses import asdict
 from datetime import datetime, timezone
+import time
 import json
 
 class MetricsStore:
