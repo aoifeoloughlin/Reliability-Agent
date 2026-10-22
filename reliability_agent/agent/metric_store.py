@@ -14,7 +14,6 @@ class MetricsStore:
         print(self.metrics[metric_name])
     
     def print_metrics(self):
-        self.test_samples(self.metrics)
         with open('metrics_logs.json', 'w') as file:
             file.write(json.dumps(self.getLastNSamples(self.window_size), indent=2, default=str))
 
@@ -26,7 +25,3 @@ class MetricsStore:
     
     def to_dict(self, metrics):
         return {t: list(dq) for t, dq in metrics.items()}
-    
-    def test_samples(self, metrics):
-        with open('all_metrics_logs.json', 'w') as file:
-            file.write(json.dumps(metrics, indent=2, default=str))
