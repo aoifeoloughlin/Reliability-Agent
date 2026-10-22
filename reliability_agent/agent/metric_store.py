@@ -16,8 +16,5 @@ class MetricsStore:
     
     def print_metrics(self):
         with open('metrics_logs.json', 'w') as file:
-            print(self.to_dict())
-            file.write(json.dumps(self.to_dict(), indent=2))
-
-    def to_dict(self):
-        return dict(self.metrics) 
+            print(self.metrics)
+            file.write(json.dumps(self.metrics, indent=2, default=str)))
