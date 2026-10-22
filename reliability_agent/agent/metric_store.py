@@ -20,4 +20,4 @@ class MetricsStore:
             file.write(json.dumps(self.to_dict(), indent=2))
 
     def to_dict(self):
-        return asdict(self.metrics) 
+        return dict(self.metrics) 
