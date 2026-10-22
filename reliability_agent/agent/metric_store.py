@@ -23,4 +23,4 @@ class MetricsStore:
             file.write(json.dumps(self.to_dict(), indent=2))
 
     def to_dict(self):
-        return {t: [asdict(metric_sample) for metric_sample in self.metrics] for t, self.metrics in self.metrics.items()}
+        return {t: [asdict(metric_sample) for metric_sample in self.metrics] for t, self.metrics in self._buf.items()}
