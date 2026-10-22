@@ -8,7 +8,6 @@ class MetricsStore:
         self.metrics = defaultdict(
             lambda: deque(maxlen=self.window_size)
         )
-        self._buf = {t: deque(maxlen=window_size) for t in self.metrics}
 
     def add_sample(self, metric_name, value):
         self.metrics[metric_name].append(value)
@@ -16,9 +15,11 @@ class MetricsStore:
     
     def print_metrics(self):
         with open('metrics_logs.json', 'w') as file:
+            print()
             file.write(json.dumps(self.getLastNSamples(self.window_size), indent=2, default=str))
 
     def getLastNSamples(self, window_size):
         while(len(self.metrics) > window_size and len(self.metrics > 1)):
             self.metrics.popleft()
+        print("LIST VERSION", list(self.metrics))
         return list(self.metrics)
