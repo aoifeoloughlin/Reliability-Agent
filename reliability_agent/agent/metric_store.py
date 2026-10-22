@@ -16,7 +16,7 @@ class MetricsStore:
     def print_metrics(self):
         # data = {
         #     metric_type: [asdict(metric_sample) for metric_sample in self.metrics]     
-        #     for metric_type, self.metrics in store._buf.items()
+        #     for metric_type, self.metrics in self._buf.items()
         # }
         with open('metrics_logs.json', 'w') as file:
             file.write(json.dumps(store.to_dict(), indent=2))
