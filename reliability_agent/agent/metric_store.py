@@ -14,11 +14,14 @@ class MetricsStore:
         print(self.metrics[metric_name])
     
     def print_metrics(self):
-        data = {
-            metric_type: [asdict(metric_sample) for metric_sample in self.metrics]     
-            for metric_type, self.metrics in store._buf.items()
-        }
-
+        # data = {
+        #     metric_type: [asdict(metric_sample) for metric_sample in self.metrics]     
+        #     for metric_type, self.metrics in store._buf.items()
+        # }
         with open('metrics_logs.json', 'w') as file:
-            file.write(json.dumps(data, indent=4))
-        
+            file.write(json.dumps(store.to_dict(), indent=2))
+
+
+def to_dict(self):
+    with self._lock:
+        return {t: [asdict(metric_sample) for metric_sample in self.metrics] for t, self.metrics in self._buf.items()}
