@@ -9,8 +9,11 @@ class MemoryCollector:
         self.cur_sample = psutil.virtual_memory()
 
     def calculate_used_memory_perc(self):
-        percent = ((self.cur_sample.total - self.cur_sample.available)/self.cur_sample.total)*100
-        return percent
+        try:
+            percent = ((self.cur_sample.total - self.cur_sample.available)/self.cur_sample.total)*100
+            return percent
+        except ZeroDivisionError:
+            return 0.0
 
 
     def collect(self):
