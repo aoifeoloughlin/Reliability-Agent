@@ -31,8 +31,11 @@ class CPUCollector:
 
 
     def calculate_cpu_percentage(self, total_idle, total):
-        cpu_usage_perc=( (100 * (total - total_idle)) / total)
-        return cpu_usage_perc
+        try:
+            cpu_usage_perc=( (100 * (total - total_idle)) / total)
+            return cpu_usage_perc
+        except ZeroDivisionError:
+            return 0.0
 
     def collect(self):
         self.read_proc_stat()
